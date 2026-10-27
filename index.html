@@ -77,7 +77,7 @@ button,.btn,summary,.chip{-webkit-user-select:none;user-select:none}
 .prices{padding:clamp(96px,10vw,160px) var(--m)}
 .prices-grid{display:grid;grid-template-columns:minmax(0,600px) minmax(0,420px);justify-content:space-between;gap:64px;align-items:start;max-width:1280px;margin:0 auto}
 .price-col{container-type:inline-size}
-.price-word{font-size:17cqw;margin:0 0 6px;color:var(--ink)}
+.price-word{font-size:16.4cqw;margin:0 0 6px;color:var(--ink)}
 .price-intro{margin:28px 0 28px;max-width:46ch}
 .cat{background:var(--surface);margin-bottom:6px}
 .cat summary{list-style:none;min-height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;font-weight:600;cursor:pointer}
@@ -124,7 +124,7 @@ legend{font-weight:600;margin-bottom:10px;padding:0}
 .visit-foot{margin-top:14px;color:var(--muted);font-size:var(--step-small)}
 
 /* Lo que incluye */
-.included{padding:clamp(48px,6vw,96px) var(--m) clamp(72px,7vw,112px)}
+.included{padding:clamp(48px,6vw,96px) var(--m) clamp(56px,5vw,80px)}
 .included h2{font-size:var(--step-lead);font-weight:700;font-stretch:112%;margin-bottom:72px}
 .inc-grid{display:grid;grid-template-columns:repeat(12,1fr);column-gap:24px}
 .inc-col{grid-column:span 3}
@@ -137,7 +137,7 @@ legend{font-weight:600;margin-bottom:10px;padding:0}
 .inc-detail span{display:block;color:var(--muted);font-size:var(--step-small);margin-bottom:6px}
 
 /* Galería */
-.gallery{background:var(--surface);padding:clamp(72px,7vw,112px) var(--m);display:grid;grid-template-columns:repeat(12,1fr);column-gap:24px;align-items:center;overflow:hidden}
+.gallery{background:var(--surface);padding:clamp(72px,7vw,112px) var(--m);display:grid;grid-template-columns:repeat(12,1fr);column-gap:24px;align-items:start;overflow:hidden}
 .gallery-copy{grid-column:1/8}
 .gallery h2{font-size:min(8.4vw,150px);color:var(--ink)}
 .gallery-note{margin-top:40px;max-width:30ch;font-size:var(--step-lead);line-height:1.35}
@@ -167,17 +167,18 @@ legend{font-weight:600;margin-bottom:10px;padding:0}
 .q p{padding:0 0 24px;max-width:48ch}
 
 /* Contacto */
-.contact{min-height:min(78svh,760px);background:var(--ink);color:var(--bg);display:grid;grid-template-rows:auto 1fr auto;padding:var(--m)}
+.contact{container-type:inline-size;background:var(--ink);color:var(--bg);display:grid;grid-template-rows:auto 1fr auto;padding:var(--m)}
 .contact-lead{font-size:var(--step-lead);max-width:26ch;line-height:1.35}
-.contact h2{align-self:end;margin-bottom:10vh}
-.contact h2 a{display:block;text-decoration:none;font-size:calc((100vw - 2 * var(--m)) / 8.15);transition:color .25s ease}
+.contact h2{align-self:end;margin:clamp(88px,9vw,140px) 0 48px}
+.contact h2 a{display:block;text-decoration:none;font-size:calc(100cqw / 8.4);transition:color .25s ease}
 .contact-foot{display:flex;justify-content:space-between;gap:24px;font-size:var(--step-small)}
 .contact-foot a{font-weight:600}
 @media (hover:hover) and (pointer:fine){.contact h2 a:hover{color:#6e5a4b}}
 
 /* Footer */
 footer{padding:72px var(--m) 28px;overflow:hidden}
-.foot-name{font-size:calc((100vw - 2 * var(--m)) / 7.55);margin:0 0 0 -.04em;white-space:nowrap}
+.foot-inner{container-type:inline-size}
+.foot-name{font-size:calc(100cqw / 7.75);margin:0 0 0 -.04em;white-space:nowrap}
 .foot-row{display:grid;grid-template-columns:repeat(12,1fr);gap:24px;margin-top:72px}
 .foot-about{grid-column:1/6;font-size:var(--step-lead);line-height:1.35}
 .foot-about a{color:var(--accent)}
@@ -189,27 +190,22 @@ footer{padding:72px var(--m) 28px;overflow:hidden}
 /* Barra móvil */
 .dock{display:none}
 
-/* Movimiento: el contenido es visible sin esto */
-@keyframes rise{from{transform:translateY(28px)}}
+/* Movimiento. Lo arma el script con GSAP; sin JS o con movimiento reducido todo queda visible y quieto. */
 @keyframes pop{from{transform:translateY(6px)}}
-@keyframes drift{from{transform:scale(1.06) translateX(1.5%)}to{transform:scale(1) translateX(0)}}
-@keyframes settle{to{transform:scale(.93) translateY(-4%)}}
-@keyframes enter{from{transform:translateY(22%)}}
-@media (prefers-reduced-motion:no-preference){
-  .hero-photo{animation:drift 2.4s var(--ease-out) both}
-  .monument span{display:inline-block;animation:enter 1.1s var(--ease-out) both;animation-delay:calc(var(--i) * 45ms + 120ms)}
-  .hero-copy>*{animation:rise .9s var(--ease-out) both}
-  .hero-copy>:nth-child(2){animation-delay:.08s}
-  .hero-copy>:nth-child(3){animation-delay:.16s}
-  .reveal-on [data-rise]:not(.in){opacity:0;transform:translateY(28px)}
-  .reveal-on [data-rise]{transition:opacity .8s var(--ease-out),transform .9s var(--ease-out)}
-  .reveal-on [data-rise="2"]{transition-delay:.08s}
-  .reveal-on [data-rise="3"]{transition-delay:.16s}
-  @supports (animation-timeline:view()){
-    .monument{animation:settle linear both;animation-timeline:view();animation-range:exit 0% exit 100%}
-    .ritual-panel img{animation:drift linear both;animation-timeline:view();animation-range:cover 0% cover 100%}
-  }
-}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+.monument span{display:inline-block}
+.w{display:inline-block;white-space:nowrap;overflow:hidden;vertical-align:top;padding:0 .02em .08em;margin:0 -.02em -.08em}
+.ch{display:inline-block}
+/* El verbo está cortado en diagonal, como una pasada de navaja; quieto, las dos mitades forman la palabra */
+.verb{display:block}
+.cut-a{display:block;clip-path:polygon(-5% -10%,105% -10%,105% 47%,-5% 63%)}
+.cut-b{position:absolute;left:0;right:0;top:0;clip-path:polygon(-5% 60%,105% 44%,105% 110%,-5% 110%)}
+.verb-hold .verb{position:sticky}
+.is-pinned #ritual{position:relative;height:100svh;overflow:hidden}
+.is-pinned .ritual-panel{position:absolute;inset:0;height:auto}
+.is-pinned .verb-hold{padding:0;display:grid;place-items:center}
+.is-pinned .verb-hold .verb{position:relative;top:auto}
 
 /* Tablet */
 @media (max-width:1000px){
@@ -220,10 +216,8 @@ footer{padding:72px var(--m) 28px;overflow:hidden}
   .inc-detail{display:none}
   .inc-col p{display:block;color:var(--ink);margin-top:14px;font-size:var(--step-small)}
   .faq-list>div{grid-column:3/13}
-  .contact{min-height:auto}
-  .contact h2{margin:clamp(96px,14vw,160px) 0 48px}
   .gallery{display:block}
-  .gallery h2{font-size:15vw}
+  .gallery h2{font-size:13.5vw}
   .prints{height:min(86vw,640px);max-width:680px;margin-top:56px}
 }
 
@@ -266,8 +260,6 @@ footer{padding:72px var(--m) 28px;overflow:hidden}
   .faq-list{display:block;margin-top:40px}
   .q{margin:0 -20px;padding:0 20px}
   .q summary{font-size:1.1875rem}
-  .contact{min-height:70svh}
-  .contact h2{margin-bottom:6vh}
   .contact-foot{flex-direction:column;gap:12px;font-size:15px}
   .foot-row{display:block;margin-top:40px}
   .foot-links{margin-top:40px}
@@ -307,17 +299,17 @@ footer{padding:72px var(--m) 28px;overflow:hidden}
 <section id="ritual" aria-label="El ritual">
   <article class="ritual-panel">
     <img src="assets/service-cut-1600.jpg" srcset="assets/service-cut-800.jpg 800w, assets/service-cut-1600.jpg 1600w" sizes="100vw" width="1600" height="900" alt="Barbero marcando un degradado con máquina" loading="lazy">
-    <div class="verb-hold"><h2 class="verb display">Cortar</h2></div>
+    <div class="verb-hold"><h2 class="verb display"><span class="cut-a">Cortar</span><span class="cut-b" aria-hidden="true">Cortar</span></h2></div>
     <p class="ritual-text" data-rise><strong>Cinco minutos de conversación antes de tocar la máquina.</strong>Cómo te peinas, cada cuánto vuelves y qué no te gusta del corte que traes. Después, tijera y máquina a la forma de tu cabeza.</p>
   </article>
   <article class="ritual-panel">
     <img src="assets/service-beard-1600.jpg" srcset="assets/service-beard-800.jpg 800w, assets/service-beard-1600.jpg 1600w" sizes="100vw" width="1600" height="1067" alt="Afeitado con navaja, espuma de brocha y toalla caliente" loading="lazy">
-    <div class="verb-hold"><h2 class="verb display">Afeitar</h2></div>
+    <div class="verb-hold"><h2 class="verb display"><span class="cut-a">Afeitar</span><span class="cut-b" aria-hidden="true">Afeitar</span></h2></div>
     <p class="ritual-text" data-rise><strong>Toalla caliente, espuma de brocha y una hoja nueva por cliente.</strong>Perfilamos la barba según la forma de tu cara y cerramos con bálsamo frío.</p>
   </article>
   <article class="ritual-panel">
     <img src="assets/finished-look-1600.jpg" srcset="assets/finished-look-800.jpg 800w, assets/finished-look-1600.jpg 1600w" sizes="100vw" width="1600" height="1067" alt="Cliente con el corte y la barba terminados, sentado en la silla" loading="lazy">
-    <div class="verb-hold"><h2 class="verb display">Rematar</h2></div>
+    <div class="verb-hold"><h2 class="verb display"><span class="cut-a">Rematar</span><span class="cut-b" aria-hidden="true">Rematar</span></h2></div>
     <p class="ritual-text" data-rise><strong>Lavado, producto y peinado.</strong>Te decimos qué usar en casa para que el corte se vea igual el lunes que el sábado.</p>
   </article>
 </section>
@@ -446,7 +438,7 @@ footer{padding:72px var(--m) 28px;overflow:hidden}
 </main>
 
 <footer>
-  <p class="foot-name display" aria-hidden="true">Navaja 58</p>
+  <div class="foot-inner"><p class="foot-name display" aria-hidden="true">Navaja 58</p></div>
   <div class="foot-row">
     <p class="foot-about">Proyecto demostrativo. Navaja 58 no existe: es una muestra de cómo puede verse la página de una barbería. ¿Quieres una así para tu negocio? <a href="https://instagram.com/estudioabweb">Escríbele a AB Web Studio</a>.</p>
     <nav class="foot-links" aria-label="Pie de página"><a href="#ritual">El ritual</a><a href="#precios">Precios</a><a href="#preguntas">Preguntas</a><a href="#contacto">Contacto</a></nav>
@@ -484,17 +476,112 @@ function update(){
 document.querySelectorAll("#services input,input[name=dia],#hora,#nombre").forEach(el=>el.addEventListener(el.id==="nombre"?"input":"change",update));
 update();
 
-if("IntersectionObserver" in window&&matchMedia("(prefers-reduced-motion:no-preference)").matches){
-  const rise=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");rise.unobserve(e.target)}}),{rootMargin:"0px 0px -8% 0px"});
-  document.querySelectorAll("[data-rise]").forEach(el=>{if(el.getBoundingClientRect().top>innerHeight)rise.observe(el);else el.classList.add("in")});
-  document.documentElement.classList.add("reveal-on");
-}
 const dock=document.querySelector(".dock"),hideFor=new Set();
 const io=new IntersectionObserver(es=>{es.forEach(e=>e.isIntersecting?hideFor.add(e.target):hideFor.delete(e.target));dock.classList.toggle("away",hideFor.size>0)});
 document.querySelectorAll("#inicio,#precios,#contacto,footer").forEach(el=>io.observe(el));
 
 const detail=document.getElementById("inc-detail");
 document.querySelectorAll(".inc-col li").forEach(li=>{const show=()=>{detail.innerHTML=`<span>${li.closest(".inc-col").querySelector("h3").textContent} · ${li.textContent}</span>${li.dataset.d}`};li.addEventListener("mouseenter",show);li.addEventListener("focus",show)});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+(()=>{
+  if(!window.gsap||!window.ScrollTrigger||!matchMedia("(prefers-reduced-motion:no-preference)").matches)return;
+  gsap.registerPlugin(ScrollTrigger);
+  const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+  const ease="expo.out";
+
+  // Desplazamiento suave; los enlaces internos pasan por Lenis
+  if(window.Lenis){
+    const lenis=new Lenis({lerp:.11});
+    lenis.on("scroll",ScrollTrigger.update);
+    gsap.ticker.add(t=>lenis.raf(t*1000));gsap.ticker.lagSmoothing(0);
+    $$('a[href^="#"]').forEach(a=>a.addEventListener("click",e=>{const t=$(a.getAttribute("href"));if(t){e.preventDefault();lenis.scrollTo(t,{duration:1.4})}}));
+  }
+
+  // Parte un título en palabras con máscara y letras; el lector de pantalla recibe el texto entero
+  function split(el){
+    el.setAttribute("aria-label",el.textContent.replace(/\s+/g," ").trim());
+    [...el.childNodes].forEach(n=>{
+      if(n.nodeType!==3)return;
+      const frag=document.createDocumentFragment();
+      n.textContent.split(/(\s+)/).forEach(part=>{
+        if(!part)return;
+        if(/^\s+$/.test(part)){frag.append(" ");return}
+        const w=document.createElement("span");w.className="w";w.setAttribute("aria-hidden","true");
+        [...part].forEach(c=>{const ch=document.createElement("span");ch.className="ch";ch.textContent=c;w.append(ch)});
+        frag.append(w);
+      });
+      n.replaceWith(frag);
+    });
+    return $$(".ch",el);
+  }
+
+  // Portada: la foto se abre, NAVAJA sube desde el borde y el texto entra detrás
+  const heroChars=split($(".hero h1"));
+  gsap.timeline({defaults:{ease}})
+    .from(".hero-photo",{scale:1.18,clipPath:"inset(10% 0% 10% 0%)",duration:1.8})
+    .from(".monument span",{yPercent:105,duration:1.4,stagger:.06},.15)
+    .from(heroChars,{yPercent:110,duration:1.1,stagger:.012},.35)
+    .from(".hero-lead,.hero-actions",{y:24,opacity:0,duration:1,stagger:.1},.7);
+  gsap.to(".monument",{xPercent:-9,ease:"none",scrollTrigger:{trigger:".hero",start:"top top",end:"bottom top",scrub:true}});
+  gsap.to(".hero-photo",{yPercent:14,scale:1.06,ease:"none",scrollTrigger:{trigger:".hero",start:"top top",end:"bottom top",scrub:true}});
+  gsap.to(".hero-copy",{y:-90,opacity:.25,ease:"none",scrollTrigger:{trigger:".hero",start:"top top",end:"bottom top",scrub:true}});
+
+  // El ritual: se fija la pantalla, la navaja corta el verbo y la siguiente foto entra en diagonal
+  const ritual=$("#ritual"),panels=$$(".ritual-panel",ritual);
+  document.documentElement.classList.add("is-pinned");
+  const closed="polygon(120% 0%,120% 0%,100% 100%,100% 100%)",open="polygon(0% 0%,120% 0%,100% 100%,-20% 100%)";
+  panels.forEach((p,i)=>{
+    gsap.set(p,{zIndex:i+1});
+    if(i){gsap.set(p,{clipPath:closed});gsap.set($(".cut-a",p),{xPercent:-12,opacity:0});gsap.set($(".cut-b",p),{xPercent:12,opacity:0});gsap.set($(".ritual-text",p),{y:40,opacity:0})}
+  });
+  const rt=gsap.timeline({defaults:{ease:"power2.inOut"},scrollTrigger:{trigger:ritual,start:"top top",end:()=>"+="+innerHeight*2.4,pin:true,scrub:.8,anticipatePin:1}});
+  panels.forEach((p,i)=>{
+    const next=panels[i+1];
+    rt.to($("img",p),{scale:1.08,duration:1,ease:"none"},i*1.2);
+    if(!next)return;
+    const at=i*1.2+.55;
+    rt.to($(".cut-a",p),{xPercent:-10,yPercent:-14,opacity:0,duration:.5},at)
+      .to($(".cut-b",p),{xPercent:10,yPercent:14,opacity:0,duration:.5},at)
+      .to($(".ritual-text",p),{y:-30,opacity:0,duration:.35},at)
+      .to(next,{clipPath:open,duration:.65},at+.1)
+      .from($("img",next),{scale:1.25,duration:.65},at+.1)
+      .to([$(".cut-a",next),$(".cut-b",next)],{xPercent:0,opacity:1,duration:.45,ease:"power3.out"},at+.45)
+      .to($(".ritual-text",next),{y:0,opacity:1,duration:.4,ease:"power3.out"},at+.55);
+  });
+
+  // Entradas por sección: una vez, de arriba abajo
+  // immediateRender:false: si el disparador nunca llega, el contenido sigue visible
+  const enter=(targets,trigger,vars={})=>gsap.from(targets,{y:32,opacity:0,duration:.9,ease,stagger:.06,immediateRender:false,...vars,scrollTrigger:{trigger,start:"top bottom",once:true}});
+  const precio=split($(".price-word"));
+  gsap.from(precio,{yPercent:105,duration:1.1,ease,stagger:.04,immediateRender:false,scrollTrigger:{trigger:".price-word",start:"top bottom",once:true}});
+  enter([".price-intro",...$$(".cat"),".price-note"],"#services");
+  enter(".visit",".visit",{y:56});
+  enter(".included h2",".included");
+  $$(".inc-col").forEach((c,i)=>enter([$("h3",c),...$$("li",c),$("p",c)],c,{delay:i*.08,stagger:.04,y:20}));
+
+  const salir=split($(".gallery h2"));
+  gsap.from(salir,{yPercent:110,duration:1.1,ease,stagger:.035,immediateRender:false,scrollTrigger:{trigger:".gallery h2",start:"top bottom",once:true}});
+  enter(".gallery-note",".gallery",{delay:.4});
+  $$(".print").forEach((p,i)=>gsap.from(p,{y:120+i*50,rotation:0,ease:"none",scrollTrigger:{trigger:".gallery",start:"top bottom",end:"top 25%",scrub:.6}}));
+
+  const faq=split($(".faq h2"));
+  gsap.from(faq,{yPercent:110,duration:1,ease,stagger:.025,immediateRender:false,scrollTrigger:{trigger:".faq h2",start:"top bottom",once:true}});
+  enter($$(".q"),".faq-list",{stagger:.06,y:20});
+
+  const wa=split($(".contact h2 a"));
+  gsap.from(wa,{yPercent:110,rotation:6,duration:1.2,ease,stagger:.05,immediateRender:false,scrollTrigger:{trigger:".contact h2",start:"top bottom",once:true}});
+  enter([".contact-lead",".contact-foot"],".contact",{stagger:.15});
+
+  const name=split($(".foot-name"));
+  gsap.from(name,{yPercent:100,ease:"none",stagger:.05,scrollTrigger:{trigger:"footer",start:"top bottom",end:"top 70%",scrub:.6}});
+
+  addEventListener("load",()=>ScrollTrigger.refresh());
+  document.fonts&&document.fonts.ready.then(()=>ScrollTrigger.refresh());
+})();
 </script>
 </body>
 </html>
