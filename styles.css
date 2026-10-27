@@ -166,37 +166,60 @@ body::after { content: ""; position: fixed; inset: 0; z-index: 70; pointer-event
 .marquee i { width: 14px; height: 14px; flex: none; background: var(--accent-ink); transform: rotate(45deg); }
 @keyframes marquee { to { transform: translateX(-50%); } }
 
-/* Los cortes: carrusel horizontal que se fija al hacer scroll */
-.looks { position: relative; z-index: 1; padding: clamp(96px, 10vw, 140px) 0 clamp(72px, 8vw, 120px); overflow: hidden; }
-.looks-head { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 32px; align-items: end; padding: 0 var(--m); margin-bottom: 48px; }
-.looks-head h2 { font-size: var(--step-head); font-weight: 600; line-height: 1; letter-spacing: -.04em; }
-.looks-head p { color: var(--muted); max-width: 36ch; }
-.looks-track { display: flex; gap: 20px; padding: 0 var(--m); width: max-content; }
-.look { position: relative; width: clamp(300px, 30vw, 420px); flex: none; border-radius: 22px; overflow: hidden; background: var(--surface); }
-.look figure { position: relative; aspect-ratio: 4 / 5; overflow: hidden; }
-.look figure img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.08); transition: transform 1.2s var(--ease-out); }
-.look figure::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, var(--surface) 100%); }
-@media (hover: hover) and (pointer: fine) { .look:hover figure img { transform: scale(1.14); } }
-.look-info { position: relative; padding: 0 24px 24px; margin-top: -56px; }
-.look-num { font-family: "Geist Mono", ui-monospace, monospace; font-size: var(--step-small); color: var(--accent); }
-.look h3 { margin-top: 6px; font-size: clamp(1.75rem, 1.3rem + 1.4vw, 2.5rem); font-weight: 600; letter-spacing: -.04em; line-height: 1; }
-.look-text { margin-top: 12px; color: var(--muted); font-size: 1rem; line-height: 1.5; min-height: 4.5em; }
-.meter { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 14px; margin-top: 18px; }
-.meter-bar { position: relative; height: 8px; border-radius: 8px; background: var(--surface-2); overflow: hidden; }
-.meter-bar b { position: absolute; inset: 0 auto 0 0; width: 100%; border-radius: 8px; background: linear-gradient(90deg, #3a3a40, var(--accent)); transform-origin: 0 50%; transform: scaleX(var(--h)); }
-.meter-label { font-size: var(--step-small); color: var(--muted); }
-.look-add { margin-top: 20px; width: 100%; min-height: 48px; border: 1px solid #2c2c31; border-radius: 999px; background: none; font-weight: 600; font-size: .9375rem; cursor: pointer; transition: background-color .2s ease, color .2s ease, border-color .2s ease, transform .16s var(--ease-out); }
+/* Los cortes: vitrina con ficha técnica; en computadora se fija y cambia de corte con un tajo */
+.cuts { position: relative; z-index: 1; padding: clamp(96px, 10vw, 140px) var(--m) clamp(72px, 8vw, 120px); }
+.cuts-head { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 32px; align-items: end; margin-bottom: 40px; }
+.cuts-head h2 { font-size: var(--step-head); font-weight: 600; line-height: 1; letter-spacing: -.04em; }
+.cuts-head p { color: var(--muted); max-width: 38ch; }
+.cuts-stage { position: relative; }
+.cuts-nav { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 28px; }
+.cuts-nav button { position: relative; display: inline-flex; align-items: baseline; gap: 8px; min-height: 44px; padding: 0 18px; border: 1px solid #2a2a2f; border-radius: 999px; background: none; font-weight: 600; font-size: .9375rem; cursor: pointer; transition: background-color .25s ease, color .25s ease, border-color .25s ease; }
+.cuts-nav button span { font-family: "Geist Mono", ui-monospace, monospace; font-size: .75rem; color: var(--muted); transition: color .25s ease; }
+.cuts-nav button.is-active { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+.cuts-nav button.is-active span { color: var(--accent); }
+@media (hover: hover) and (pointer: fine) { .cuts-nav button:not(.is-active):hover { border-color: var(--muted); } }
+
+.cut { position: relative; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(28px, 5vw, 80px); align-items: center; }
+.cut + .cut { margin-top: 72px; }
+.cut-ghost { position: absolute; z-index: -1; right: -.04em; top: 50%; transform: translateY(-50%); font-size: clamp(6rem, 3rem + 14vw, 17rem); font-weight: 700; letter-spacing: -.06em; line-height: .8; color: transparent; -webkit-text-stroke: 1px #26262b; white-space: nowrap; pointer-events: none; }
+.cut-photo { position: relative; aspect-ratio: 4 / 5; max-height: 74vh; border-radius: 22px; overflow: hidden; background: var(--surface); }
+.cut-photo img { width: 100%; height: 100%; object-fit: cover; object-position: var(--o, 50% 50%); transform: scale(var(--z, 1.1)); transform-origin: var(--o, 50% 50%); filter: contrast(1.06) saturate(.9); }
+.cut-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(200deg, transparent 50%, rgba(10,10,11,.55)); pointer-events: none; }
+.cut-slash { position: absolute; z-index: 2; left: -30%; top: 50%; width: 160%; height: 3px; background: linear-gradient(90deg, transparent, var(--accent) 30%, #fff 50%, var(--accent) 70%, transparent); box-shadow: 0 0 24px 4px rgba(255,74,46,.55); transform: rotate(-58deg) scaleX(0); opacity: 0; pointer-events: none; }
+/* Medidor: hasta dónde sube el degradado */
+.gauge { position: absolute; z-index: 1; right: 16px; top: 16px; bottom: 16px; width: 6px; border-radius: 6px; background: rgba(255,255,255,.14); }
+.gauge b { position: absolute; left: 0; right: 0; bottom: 0; height: 100%; border-radius: 6px; background: var(--accent); transform-origin: 50% 100%; transform: scaleY(var(--h)); box-shadow: 0 0 14px rgba(255,74,46,.6); }
+.gauge span { position: absolute; right: 14px; transform: translateY(50%); font-family: "Geist Mono", ui-monospace, monospace; font-size: .6875rem; letter-spacing: .04em; color: rgba(241,240,236,.75); white-space: nowrap; text-shadow: 0 1px 6px rgba(0,0,0,.6); }
+.gauge span:nth-of-type(1) { bottom: 92%; }
+.gauge span:nth-of-type(2) { bottom: 62%; }
+.gauge span:nth-of-type(3) { bottom: 32%; }
+.gauge span:nth-of-type(4) { bottom: 4%; }
+.cut-num { font-family: "Geist Mono", ui-monospace, monospace; font-size: var(--step-small); color: var(--accent); }
+.cut-name { margin-top: 10px; font-size: clamp(2.75rem, 1.6rem + 4vw, 5.5rem); font-weight: 600; letter-spacing: -.05em; line-height: .92; }
+.cut-sum { margin-top: 18px; max-width: 44ch; font-size: var(--step-lead); line-height: 1.4; color: var(--muted); }
+.specs { margin: 26px 0 0; max-width: 560px; border-top: 1px solid #232327; }
+.specs div { display: grid; grid-template-columns: 140px 1fr; gap: 16px; padding: 12px 0; border-bottom: 1px solid #232327; }
+.specs dt { font-size: var(--step-small); color: var(--muted); padding-top: 2px; }
+.specs dd { margin: 0; font-weight: 500; }
+.look-add { margin-top: 22px; width: 100%; max-width: 560px; min-height: 50px; border: 1px solid #2c2c31; border-radius: 999px; background: none; font-weight: 600; font-size: .9375rem; cursor: pointer; transition: background-color .2s ease, color .2s ease, border-color .2s ease, transform .16s var(--ease-out); }
 .look-add:active { transform: scale(.97); }
 .look-add[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
 @media (hover: hover) and (pointer: fine) { .look-add:hover { border-color: var(--ink); } }
-@media (min-width: 901px) {
-  .looks { padding-bottom: 56px; }
-  .looks-head { margin-bottom: 36px; }
-  .look figure { aspect-ratio: auto; height: clamp(240px, 40vh, 460px); }
-  .look-text { min-height: 0; }
-}
-.looks-progress { margin: 40px var(--m) 0; height: 2px; background: var(--surface-2); }
-.looks-progress span { display: block; height: 100%; background: var(--accent); transform-origin: 0 50%; transform: scaleX(0); }
+.cuts-progress { display: none; }
+
+/* Modo fijado (computadora con movimiento): los cortes se apilan en una sola pantalla */
+.cuts-pinned .cuts { padding-top: 32px; padding-bottom: 32px; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; }
+.cuts-pinned .cuts-head { margin-bottom: 20px; }
+.cuts-pinned .cuts-stage { display: grid; }
+.cuts-pinned .cuts-nav { grid-area: 1 / 1; }
+.cuts-pinned .cut { grid-area: 2 / 1; margin: 0; visibility: hidden; }
+.cuts-pinned .cut.is-active { visibility: visible; }
+.cuts-pinned .cut-photo { height: min(60vh, 620px); max-height: none; aspect-ratio: auto; width: 100%; }
+.cuts-pinned .cut-sum { font-size: var(--step-body); margin-top: 14px; }
+.cuts-pinned .specs { margin-top: 18px; }
+.cuts-pinned .specs div { padding: 9px 0; }
+.cuts-pinned .cuts-progress { display: block; grid-area: 3 / 1; margin-top: 20px; height: 2px; background: var(--surface-2); }
+.cuts-progress span { display: block; height: 100%; background: var(--accent); transform-origin: 0 50%; transform: scaleX(.2); }
 
 /* Frase que se ilumina palabra por palabra */
 .manifesto { position: relative; z-index: 1; padding: clamp(72px, 9vw, 140px) var(--m); }
@@ -239,10 +262,14 @@ html.lenis, html.lenis body { height: auto; }
   .booking { position: relative; top: 0; }
   .footer-row { grid-template-columns: 1fr; gap: 16px; }
   .hover-img { display: none; }
-  .looks-head { grid-template-columns: 1fr; }
-  .looks-track { width: auto; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding: 0 var(--m); overscroll-behavior-x: contain; scrollbar-width: none; padding-bottom: 4px; }
-  .looks-track::-webkit-scrollbar { display: none; }
-  .look { scroll-snap-align: start; width: min(78vw, 360px); }
+  .cuts-head, .cut { grid-template-columns: 1fr; }
+  .cut { gap: 24px; }
+  .cut + .cut { margin-top: 88px; }
+  .cut-photo { aspect-ratio: 1 / 1; max-height: none; }
+  .cut-ghost { top: 0; transform: none; }
+  .cuts-nav { position: sticky; top: 8px; z-index: 5; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin: 0 calc(var(--m) * -1) 28px; padding: 8px var(--m); background: linear-gradient(var(--bg) 70%, transparent); }
+  .cuts-nav::-webkit-scrollbar { display: none; }
+  .cuts-nav button { flex: none; }
   .svc { grid-template-columns: 56px 1fr auto; }
   .svc-thumb { display: block; grid-row: 1 / 3; width: 56px; height: 56px; border-radius: 12px; object-fit: cover; align-self: center; }
   .svc-name, .svc-meta { grid-column: 2; }
@@ -278,7 +305,8 @@ html.lenis, html.lenis body { height: auto; }
   .kicker { margin-bottom: 18px; }
   .badge { display: none; }
   .marquee { padding: 14px 0; }
-  .look-info { padding: 0 20px 20px; }
+  .specs div { grid-template-columns: 104px 1fr; gap: 12px; }
+  .gauge span { font-size: .625rem; }
   .svc { gap: 2px 14px; }
   .footer-cta { font-size: 3rem; }
   .footer { padding-bottom: calc(110px + env(safe-area-inset-bottom, 0px)); }

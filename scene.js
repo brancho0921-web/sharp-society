@@ -15,8 +15,9 @@ function start() {
   gsap.registerPlugin(ScrollTrigger);
   const ease = 'expo.out';
 
+  let lenis = null;
   if (Lenis) {
-    const lenis = new Lenis({ lerp: 0.1 });
+    lenis = new Lenis({ lerp: 0.1 });
     lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add((t) => lenis.raf(t * 1000));
     gsap.ticker.lagSmoothing(0);
@@ -106,31 +107,78 @@ function start() {
     clearTimeout(calm); calm = setTimeout(() => skew(0), 120);
   } });
   // la navaja se apaga al llegar a los cortes
-  if (razor) gsap.to('.razor-canvas', { opacity: 0, ease: 'none', scrollTrigger: { trigger: '.looks', start: 'top bottom', end: 'top 35%', scrub: true } });
+  if (razor) gsap.to('.razor-canvas', { opacity: 0, ease: 'none', scrollTrigger: { trigger: '.cuts', start: 'top bottom', end: 'top 35%', scrub: true } });
 
-  // Los cortes: en computadora se fija la sección y el carrusel corre de lado
-  const looks = $('.looks'), track = $('#looks-track'), bar = $('.looks-progress span');
-  rise($('.looks-head h2'));
-  enter('.looks-head p', '.looks-head');
+  // ---------- Los cortes: cada uno entra con un tajo de navaja ----------
+  const cutsSec = $('.cuts'), cuts = $$('.cut'), navBtns = $$('.cuts-nav button'), cutBar = $('.cuts-progress span');
+  rise($('.cuts-head h2'));
+  enter('.cuts-head p', '.cuts-head');
+  const cutNames = cuts.map((c) => split($('.cut-name', c)));
+  const OPEN = 'polygon(0% 0%, 140% 0%, 100% 100%, -40% 100%)';
+  const SHUT_L = 'polygon(0% 0%, 0% 0%, -40% 100%, -40% 100%)';
+  const SHUT_R = 'polygon(140% 0%, 140% 0%, 100% 100%, 100% 100%)';
+  $$('.cut-slash').forEach((s) => gsap.set(s, { rotate: -58, scaleX: 0, opacity: 0 }));
+
+  // la foto se abre en diagonal, un destello cruza, el nombre sube y la ficha cae en cascada
+  function reveal(cut, dir = 1) {
+    const i = cuts.indexOf(cut), photo = $('.cut-photo', cut), img = $('img', photo);
+    const z = parseFloat(img.style.getPropertyValue('--z')) || 1.1;
+    const h = parseFloat(getComputedStyle(cut).getPropertyValue('--h')) || 0.5;
+    return gsap.timeline({ defaults: { ease, overwrite: 'auto' } })
+      .fromTo(photo, { clipPath: dir > 0 ? SHUT_L : SHUT_R }, { clipPath: OPEN, duration: 0.95, ease: 'expo.inOut' }, 0)
+      .fromTo(img, { scale: z + 0.35 }, { scale: z, duration: 1.5 }, 0)
+      .fromTo($('.cut-slash', cut), { scaleX: 0, opacity: 1, xPercent: -25 * dir }, { scaleX: 1, xPercent: 0, duration: 0.55, ease: 'power3.out' }, 0.1)
+      .to($('.cut-slash', cut), { opacity: 0, duration: 0.5, ease: 'power1.out' }, 0.55)
+      .fromTo(cutNames[i], { yPercent: 110, skewY: 7 * dir }, { yPercent: 0, skewY: 0, duration: 0.9, stagger: 0.025 }, 0.2)
+      .fromTo($$('.cut-num, .cut-sum, .specs > div, .look-add', cut), { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.05 }, 0.3)
+      .fromTo($('.gauge b', cut), { scaleY: 0 }, { scaleY: h, duration: 1.3, ease: 'expo.inOut' }, 0.35)
+      .fromTo($('.cut-ghost', cut), { x: 80 * dir, opacity: 0 }, { x: 0, opacity: 1, duration: 1.4 }, 0);
+  }
+  // el corte que se va se cierra en diagonal hacia el lado contrario
+  function leave(cut, dir) {
+    return gsap.timeline({ defaults: { overwrite: 'auto' } })
+      .to($('.cut-photo', cut), { clipPath: dir > 0 ? SHUT_R : SHUT_L, duration: 0.6, ease: 'expo.in' }, 0)
+      .to($$('.cut-num, .cut-name, .cut-sum, .specs > div, .look-add', cut), { y: -18 * dir, opacity: 0, duration: 0.3, stagger: 0.02, ease: 'power2.in' }, 0)
+      .to($('.cut-ghost', cut), { x: -80 * dir, opacity: 0, duration: 0.5, ease: 'power2.in' }, 0)
+      .set($('.cut-name', cut), { y: 0, opacity: 1 });
+  }
+  const setNav = (i) => navBtns.forEach((b, k) => b.classList.toggle('is-active', k === i));
+  let cur = 0;
+  function showCut(i) {
+    if (i === cur) return;
+    const dir = i > cur ? 1 : -1, prev = cuts[cur];
+    cur = i;
+    cuts.forEach((c, k) => { if (k !== i && c !== prev) c.classList.remove('is-active'); });
+    leave(prev, dir).eventCallback('onComplete', () => { if (cuts[cur] !== prev) prev.classList.remove('is-active'); });
+    cuts[i].classList.add('is-active');
+    reveal(cuts[i], dir);
+    setNav(i);
+    gsap.to(cutBar, { scaleX: (i + 1) / cuts.length, duration: 0.7, ease });
+  }
+  const goTo = (y) => (lenis ? lenis.scrollTo(y, { duration: 1.2 }) : scrollTo({ top: y, behavior: 'smooth' }));
+
   const mm = gsap.matchMedia();
-  mm.add('(min-width: 901px)', () => {
-    const dist = () => Math.max(0, track.scrollWidth - innerWidth);
-    // si la sección cabe en pantalla se fija centrada; si no, cuando su borde de abajo llega abajo
-    gsap.timeline({ scrollTrigger: { trigger: looks, start: () => (looks.offsetHeight > innerHeight ? 'bottom bottom' : 'center center'), end: () => '+=' + dist(), pin: true, scrub: 0.8, anticipatePin: 1, invalidateOnRefresh: true } })
-      .to(track, { x: () => -dist(), ease: 'none' }, 0)
-      .to(bar, { scaleX: 1, ease: 'none' }, 0);
-    $$('.look figure img').forEach((img) => gsap.fromTo(img, { xPercent: -6 }, { xPercent: 6, ease: 'none', scrollTrigger: { trigger: looks, start: () => (looks.offsetHeight > innerHeight ? 'bottom bottom' : 'center center'), end: () => '+=' + dist(), scrub: true } }));
+  // computadora: la sección se fija y cada tramo de scroll cambia de corte
+  mm.add('(min-width: 901px) and (min-height: 620px)', () => {
+    document.documentElement.classList.add('cuts-pinned');
+    const first = reveal(cuts[0], 1).pause(0);
+    ScrollTrigger.create({ trigger: cutsSec, start: 'top 60%', once: true, onEnter: () => first.play() });
+    const pin = ScrollTrigger.create({
+      trigger: cutsSec, start: 'top top', end: () => '+=' + innerHeight * 0.7 * (cuts.length - 1), pin: true, anticipatePin: 1, invalidateOnRefresh: true,
+      onUpdate: (self) => showCut(Math.min(cuts.length - 1, Math.floor(self.progress * cuts.length))),
+    });
+    navBtns.forEach((b, i) => (b.onclick = () => goTo(pin.start + ((pin.end - pin.start) * (i + 0.5)) / cuts.length)));
+    return () => { document.documentElement.classList.remove('cuts-pinned'); cuts.forEach((c, k) => c.classList.toggle('is-active', !k)); cur = 0; };
   });
-  mm.add('(max-width: 900px)', () => {
-    const onScroll = () => gsap.set(bar, { scaleX: track.scrollLeft / Math.max(1, track.scrollWidth - track.clientWidth) });
-    track.addEventListener('scroll', onScroll, { passive: true });
-    return () => track.removeEventListener('scroll', onScroll);
+  // teléfono: cada corte hace su tajo al aparecer y la barra de arriba marca cuál estás viendo
+  mm.add('(max-width: 900px), (max-height: 619px)', () => {
+    cuts.forEach((c, i) => {
+      const tl = reveal(c, 1).pause(0);
+      ScrollTrigger.create({ trigger: c, start: 'top 82%', once: true, onEnter: () => tl.play() });
+      ScrollTrigger.create({ trigger: c, start: 'top 55%', end: 'bottom 55%', onToggle: (self) => self.isActive && setNav(i) });
+    });
+    navBtns.forEach((b, i) => (b.onclick = () => goTo(cuts[i].getBoundingClientRect().top + scrollY - 80)));
   });
-  $$('.look').forEach((card, i) => {
-    gsap.from(card, { y: 80, rotate: 2, opacity: 0, duration: 1.1, ease, delay: i * 0.08, immediateRender: false, scrollTrigger: { trigger: track, start: 'top bottom', once: true } });
-    gsap.from($('.meter-bar b', card), { scaleX: 0, duration: 1.4, ease: 'expo.inOut', delay: 0.3 + i * 0.1, immediateRender: false, scrollTrigger: { trigger: track, start: 'top 85%', once: true } });
-  });
-
   // La frase se enciende palabra por palabra
   const mText = $('.manifesto-text');
   mText.setAttribute('aria-label', mText.textContent.trim());

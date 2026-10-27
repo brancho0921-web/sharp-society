@@ -57,7 +57,7 @@
           <a class="btn btn-ghost magnetic" href="#cortes">Ver los cortes</a>
         </div>
       </div>
-      <figure class="hero-fallback"><img src="assets/cut-mid.jpg" alt="Hombre de perfil con un mid fade y barba perfilada" width="1200" height="1800"></figure>
+      <figure class="hero-fallback"><img src="assets/cut-mid.jpg" alt="Perfil de un mid fade con barba" width="408" height="490"></figure>
     </div>
     <div class="hero-foot">
       <ul class="hero-facts">
@@ -93,64 +93,132 @@
       </div>
     </section>
 
-    <section class="looks" id="cortes" aria-labelledby="cortes-titulo">
-      <div class="looks-head">
+    <section class="cuts" id="cortes" aria-labelledby="cortes-titulo">
+      <div class="cuts-head">
         <h2 id="cortes-titulo">Los cortes que más piden</h2>
-        <p>La diferencia está en dónde empieza el degradado. Desliza, mira la altura y súmalo a tu cita.</p>
+        <p>Lo que cambia entre uno y otro es dónde empieza el degradado y cuánto contraste deja. Aquí está la ficha de cada uno.</p>
       </div>
-      <div class="looks-track" id="looks-track">
-        <article class="look" style="--h:.18">
-          <figure><img src="assets/cut-taper.jpg" alt="Hombre sonriendo con taper fade y barba corta" width="1200" height="1800" loading="lazy"></figure>
-          <div class="look-info">
-            <p class="look-num">01</p>
-            <h3>Taper fade</h3>
-            <p class="look-text">Solo patillas y nuca se rebajan. Se ve limpio y crece sin perder la forma.</p>
-            <div class="meter"><span class="meter-bar"><b></b></span><span class="meter-label">Patillas y nuca</span></div>
+      <!-- Fotos de referencia aportadas por AB Web Studio desde internet: reemplazar por fotos propias del cliente antes de publicar. -->
+      <div class="cuts-stage" id="cuts-stage">
+        <nav class="cuts-nav" aria-label="Elegir corte">
+          <button type="button" class="is-active" data-go="0"><span>01</span>Taper</button>
+          <button type="button" data-go="1"><span>02</span>Clásico</button>
+          <button type="button" data-go="2"><span>03</span>Low</button>
+          <button type="button" data-go="3"><span>04</span>Mid</button>
+          <button type="button" data-go="4"><span>05</span>High</button>
+        </nav>
+
+        <article class="cut is-active" style="--h:.14" aria-labelledby="c1">
+          <p class="cut-ghost" aria-hidden="true">Taper</p>
+          <figure class="cut-photo">
+            <img src="assets/cut-taper.jpg" alt="Nuca y patilla con taper fade, rizos arriba" width="335" height="597" loading="lazy" style="--o:58% 45%;--z:1.18">
+            <span class="cut-slash" aria-hidden="true"></span>
+            <div class="gauge" aria-hidden="true"><b></b><span>Coronilla</span><span>Sien</span><span>Oreja</span><span>Nuca</span></div>
+          </figure>
+          <div class="cut-body">
+            <p class="cut-num">01 / 05 · Contorno</p>
+            <h3 class="cut-name" id="c1">Taper fade</h3>
+            <p class="cut-sum">Rebaja la longitud solo en el contorno: patillas y nuca. El resto de los lados conserva volumen, así que el corte crece sin perder la forma.</p>
+            <dl class="specs">
+              <div><dt>Dónde empieza</dt><dd>En el borde natural del cabello, patillas y nuca</dd></div>
+              <div><dt>Graduación</dt><dd>Guía 0,5 a 2 en el contorno; los lados, a tijera o guía alta</dd></div>
+              <div><dt>Arriba</dt><dd>Libre: rizos, textura o flequillo</dd></div>
+              <div><dt>Ideal para</dt><dd>Verse arreglado sin un contraste fuerte</dd></div>
+              <div><dt>Retoque</dt><dd>Cada 3 a 4 semanas</dd></div>
+            </dl>
             <button class="look-add" type="button" data-add="Taper fade">Sumar a mi cita · $7</button>
           </div>
         </article>
-        <article class="look" style="--h:.34">
-          <figure><img src="assets/cut-low.jpg" alt="Hombre de perfil con low fade y rizos arriba" width="1200" height="2133" loading="lazy"></figure>
-          <div class="look-info">
-            <p class="look-num">02</p>
-            <h3>Low fade</h3>
-            <p class="look-text">El degradado arranca justo encima de la oreja. Ideal si quieres dejar volumen arriba.</p>
-            <div class="meter"><span class="meter-bar"><b></b></span><span class="meter-label">Sobre la oreja</span></div>
-            <button class="look-add" type="button" data-add="Low fade">Sumar a mi cita · $7</button>
-          </div>
-        </article>
-        <article class="look" style="--h:.6">
-          <figure><img src="assets/cut-mid.jpg" alt="Hombre de perfil con mid fade y barba perfilada" width="1200" height="1800" loading="lazy"></figure>
-          <div class="look-info">
-            <p class="look-num">03</p>
-            <h3>Mid fade</h3>
-            <p class="look-text">Empieza a media altura, a la línea de la sien. El más pedido: contraste sin ir al extremo.</p>
-            <div class="meter"><span class="meter-bar"><b></b></span><span class="meter-label">A la altura de la sien</span></div>
-            <button class="look-add" type="button" data-add="Mid fade">Sumar a mi cita · $7</button>
-          </div>
-        </article>
-        <article class="look" style="--h:.86">
-          <figure><img src="assets/cut-high.jpg" alt="Hombre de perfil con high fade a piel y rizos arriba, en blanco y negro" width="1200" height="1509" loading="lazy"></figure>
-          <div class="look-info">
-            <p class="look-num">04</p>
-            <h3>High fade</h3>
-            <p class="look-text">Lados a piel casi hasta arriba. El contraste más marcado, para cabello con textura.</p>
-            <div class="meter"><span class="meter-bar"><b></b></span><span class="meter-label">Casi hasta la coronilla</span></div>
-            <button class="look-add" type="button" data-add="High fade">Sumar a mi cita · $8</button>
-          </div>
-        </article>
-        <article class="look" style="--h:.42">
-          <figure><img src="assets/cut-classic.jpg" alt="Hombre de perfil con corte clásico de raya al lado y barba" width="1200" height="800" loading="lazy"></figure>
-          <div class="look-info">
-            <p class="look-num">05</p>
-            <h3>Clásico con raya</h3>
-            <p class="look-text">Peinado hacia un lado con la raya marcada a navaja. Funciona en la oficina y en la boda.</p>
-            <div class="meter"><span class="meter-bar"><b></b></span><span class="meter-label">Lados cortos, arriba largo</span></div>
+
+        <article class="cut" style="--h:.04" aria-labelledby="c2">
+          <p class="cut-ghost" aria-hidden="true">Clásico</p>
+          <figure class="cut-photo">
+            <img src="assets/cut-classic.jpg" alt="Perfil de un corte clásico largo arriba, peinado hacia atrás y entallado a tijera" width="554" height="554" loading="lazy" style="--o:42% 45%;--z:1.12">
+            <span class="cut-slash" aria-hidden="true"></span>
+            <div class="gauge" aria-hidden="true"><b></b><span>Coronilla</span><span>Sien</span><span>Oreja</span><span>Nuca</span></div>
+          </figure>
+          <div class="cut-body">
+            <p class="cut-num">02 / 05 · Tijera</p>
+            <h3 class="cut-name" id="c2">Corte clásico</h3>
+            <p class="cut-sum">Tijera sobre peine en los lados y la parte de arriba larga, peinada hacia atrás o de lado. No hay piel expuesta: la transición es suave y natural.</p>
+            <dl class="specs">
+              <div><dt>Dónde empieza</dt><dd>Sin degradado a piel; lados entallados a tijera</dd></div>
+              <div><dt>Técnica</dt><dd>Tijera sobre peine y entresacado para quitar peso</dd></div>
+              <div><dt>Arriba</dt><dd>De 7 a 12 cm, peinado con pomada o cera</dd></div>
+              <div><dt>Ideal para</dt><dd>Oficina, eventos y cabello lacio u ondulado</dd></div>
+              <div><dt>Retoque</dt><dd>Cada 4 a 5 semanas</dd></div>
+            </dl>
             <button class="look-add" type="button" data-add="Corte clásico">Sumar a mi cita · $6</button>
           </div>
         </article>
+
+        <article class="cut" style="--h:.3" aria-labelledby="c3">
+          <p class="cut-ghost" aria-hidden="true">Low</p>
+          <figure class="cut-photo">
+            <img src="assets/cut-low.jpg" alt="Perfil de un low fade que arranca sobre la oreja, arriba texturizado" width="500" height="600" loading="lazy" style="--o:52% 42%;--z:1.12">
+            <span class="cut-slash" aria-hidden="true"></span>
+            <div class="gauge" aria-hidden="true"><b></b><span>Coronilla</span><span>Sien</span><span>Oreja</span><span>Nuca</span></div>
+          </figure>
+          <div class="cut-body">
+            <p class="cut-num">03 / 05 · Degradado bajo</p>
+            <h3 class="cut-name" id="c3">Low fade</h3>
+            <p class="cut-sum">El degradado arranca a uno o dos dedos sobre la oreja y baja siguiendo su curva hasta la nuca. Contraste discreto con la parte de arriba.</p>
+            <dl class="specs">
+              <div><dt>Dónde empieza</dt><dd>1 a 2 cm sobre la oreja, siguiendo el contorno</dd></div>
+              <div><dt>Graduación</dt><dd>De piel o guía 0 abajo, subiendo a guía 2 o 3</dd></div>
+              <div><dt>Arriba</dt><dd>Texturizado, crop o peinado hacia arriba</dd></div>
+              <div><dt>Ideal para</dt><dd>Un primer fade, o un trabajo que pide algo sobrio</dd></div>
+              <div><dt>Retoque</dt><dd>Cada 2 a 3 semanas</dd></div>
+            </dl>
+            <button class="look-add" type="button" data-add="Low fade">Sumar a mi cita · $7</button>
+          </div>
+        </article>
+
+        <article class="cut" style="--h:.55" aria-labelledby="c4">
+          <p class="cut-ghost" aria-hidden="true">Mid</p>
+          <figure class="cut-photo">
+            <img src="assets/cut-mid.jpg" alt="Perfil de un mid fade a la altura de la sien, con barba" width="408" height="490" loading="lazy" style="--o:58% 40%;--z:1.1">
+            <span class="cut-slash" aria-hidden="true"></span>
+            <div class="gauge" aria-hidden="true"><b></b><span>Coronilla</span><span>Sien</span><span>Oreja</span><span>Nuca</span></div>
+          </figure>
+          <div class="cut-body">
+            <p class="cut-num">04 / 05 · Degradado medio</p>
+            <h3 class="cut-name" id="c4">Mid fade</h3>
+            <p class="cut-sum">Empieza a media altura, entre la oreja y la sien. Es el punto de equilibrio: el degradado se nota sin llegar al extremo.</p>
+            <dl class="specs">
+              <div><dt>Dónde empieza</dt><dd>En la línea media, a la altura de la sien</dd></div>
+              <div><dt>Graduación</dt><dd>De piel a guía 1 o 2, empalmando con el largo de arriba</dd></div>
+              <div><dt>Arriba</dt><dd>Corto y parejo, o con volumen</dd></div>
+              <div><dt>Ideal para</dt><dd>Casi cualquier forma de cabeza y tipo de cabello</dd></div>
+              <div><dt>Retoque</dt><dd>Cada 2 semanas</dd></div>
+            </dl>
+            <button class="look-add" type="button" data-add="Mid fade">Sumar a mi cita · $7</button>
+          </div>
+        </article>
+
+        <article class="cut" style="--h:.82" aria-labelledby="c5">
+          <p class="cut-ghost" aria-hidden="true">High</p>
+          <figure class="cut-photo">
+            <img src="assets/cut-high.jpg" alt="Perfil de un high fade con la piel subiendo casi hasta la curva de la cabeza" width="494" height="619" loading="lazy" style="--o:55% 40%;--z:1.1">
+            <span class="cut-slash" aria-hidden="true"></span>
+            <div class="gauge" aria-hidden="true"><b></b><span>Coronilla</span><span>Sien</span><span>Oreja</span><span>Nuca</span></div>
+          </figure>
+          <div class="cut-body">
+            <p class="cut-num">05 / 05 · Degradado alto</p>
+            <h3 class="cut-name" id="c5">High fade</h3>
+            <p class="cut-sum">La piel sube casi hasta la curva superior de la cabeza. Es el contraste máximo entre lados limpios y la parte de arriba.</p>
+            <dl class="specs">
+              <div><dt>Dónde empieza</dt><dd>Sobre la sien, cerca de la curva de la cabeza</dd></div>
+              <div><dt>Graduación</dt><dd>Piel con shaver y empalme corto a guía 1 o 2</dd></div>
+              <div><dt>Arriba</dt><dd>Corto y marcado: french crop o texturizado</dd></div>
+              <div><dt>Ideal para</dt><dd>Un look urbano y deportivo, rostros alargados</dd></div>
+              <div><dt>Retoque</dt><dd>Cada 1 a 2 semanas</dd></div>
+            </dl>
+            <button class="look-add" type="button" data-add="High fade">Sumar a mi cita · $8</button>
+          </div>
+        </article>
+        <div class="cuts-progress" aria-hidden="true"><span></span></div>
       </div>
-      <div class="looks-progress" aria-hidden="true"><span></span></div>
     </section>
 
     <section class="manifesto" aria-label="Nuestra regla">
@@ -245,7 +313,7 @@
     <div class="footer-row">
       <p>Sharp Society · San Cristóbal, Táchira · dirección de ejemplo<br>Lunes a sábado, 9:00 a 19:00</p>
       <p>Proyecto demostrativo: Sharp Society no existe. ¿Quieres una página así? <a href="https://instagram.com/estudioabweb">Escríbele a AB Web Studio</a>.</p>
-      <p class="credits">Fotos de cortes en <a href="https://www.pexels.com/license/">Pexels</a>: <a href="https://www.pexels.com/photo/modern-fade-haircut-with-sharp-beard-style-39559324/">Brian Silva</a>, <a href="https://www.pexels.com/photo/close-up-photo-of-a-man-with-happy-face-7589418/">Joice Rivas</a>, <a href="https://www.pexels.com/photo/barber-shop-27467943/">clark07</a>, <a href="https://www.pexels.com/photo/man-with-dyed-hair-in-black-and-white-17928570/">usuario de Pexels</a>, <a href="https://www.pexels.com/photo/man-at-barber-shop-12706272/">iamluisao</a>, <a href="https://www.pexels.com/photo/profile-of-a-man-at-a-barber-7781848/">leonardokfn</a>, <a href="https://www.pexels.com/photo/back-view-of-man-with-black-hair-12074386/">Ali Aliev</a>, <a href="https://www.pexels.com/photo/a-man-at-a-barber-18503658/">hamidoffstudio</a>, <a href="https://www.pexels.com/photo/young-boy-getting-a-haircut-outdoors-37836122/">omar_al1</a>, <a href="https://www.pexels.com/photo/portrait-of-man-at-hairdresser-4625621/">Anthony Shkraba</a>. Navaja 3D y logo hechos en código.</p>
+      <p class="credits">Otras fotos en <a href="https://www.pexels.com/license/">Pexels</a>: <a href="https://www.pexels.com/photo/profile-of-a-man-at-a-barber-7781848/">leonardokfn</a>, <a href="https://www.pexels.com/photo/back-view-of-man-with-black-hair-12074386/">Ali Aliev</a>, <a href="https://www.pexels.com/photo/a-man-at-a-barber-18503658/">hamidoffstudio</a>, <a href="https://www.pexels.com/photo/young-boy-getting-a-haircut-outdoors-37836122/">omar_al1</a>, <a href="https://www.pexels.com/photo/portrait-of-man-at-hairdresser-4625621/">Anthony Shkraba</a>. Navaja 3D y logo hechos en código.</p>
     </div>
     <p class="footer-logo" aria-hidden="true">Sharp Society</p>
   </footer>
