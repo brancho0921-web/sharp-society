@@ -1,587 +1,169 @@
 <!doctype html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#111111">
-<meta name="color-scheme" content="dark">
-<meta name="description" content="Navaja 58: barbería por cita en San Cristóbal, Táchira. Corte, barba con navaja y toalla caliente. Proyecto demostrativo de AB Web Studio.">
-<title>Navaja 58 · Barbería en San Cristóbal</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=TikTok+Sans:wdth,wght@75..150,300..900&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="assets/barber-hero-1600.jpg" imagesrcset="assets/barber-hero-800.jpg 800w, assets/barber-hero-1600.jpg 1600w" imagesizes="100vw">
-<style>
-:root{
-  --bg:#111111;--surface:#1c1c1c;--surface-2:#262626;--ink:#f2f2f2;--muted:#a3a3a3;--accent:#a08672;--accent-ink:#111111;
-  --step-small:clamp(.8125rem,.79rem + .1vw,.875rem);
-  --step-body:clamp(1.0625rem,1rem + .25vw,1.1875rem);
-  --step-lead:clamp(1.25rem,1.1rem + .7vw,1.625rem);
-  --step-head:clamp(2rem,1.3rem + 3.2vw,4rem);
-  --m:clamp(20px,2.2vw,32px);
-  --ease-out:cubic-bezier(.23,1,.32,1);
-  --font:"TikTok Sans",system-ui,sans-serif;
-}
-*{box-sizing:border-box}
-html{background:var(--bg);-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:16px}
-body{margin:0;background:var(--bg);color:var(--ink);font:400 var(--step-body)/1.5 var(--font);overflow-x:clip}
-::selection{background:var(--accent);color:var(--accent-ink)}
-img{display:block;max-width:100%}
-a{color:inherit}
-h1,h2,h3,p{margin:0}
-button,input,select{font:inherit;color:inherit}
-a,button,label,summary{touch-action:manipulation}
-button,.btn,summary,.chip{-webkit-user-select:none;user-select:none}
-:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
-.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-.display{font-family:var(--font);font-weight:800;font-stretch:150%;text-transform:uppercase;letter-spacing:-.04em;line-height:.82;font-kerning:normal}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6em;min-height:54px;padding:0 26px;background:var(--accent);color:var(--accent-ink);font-weight:600;text-decoration:none;border:0;cursor:pointer;transition:transform .14s var(--ease-out),background-color .2s ease}
-.btn:active{transform:scale(.97)}
-.btn svg{width:18px;height:18px;transition:transform .25s var(--ease-out)}
-.link{font-weight:500;text-decoration:underline;text-underline-offset:.3em;text-decoration-thickness:1px}
-@media (hover:hover) and (pointer:fine){
-  .btn:hover{background:#b39985}
-  .btn:hover svg{transform:translateX(3px)}
-  .link:hover{text-decoration-color:var(--accent)}
-}
-
-/* Demo notice */
-.notice{background:var(--surface);color:var(--ink);font-size:var(--step-small);padding:10px var(--m);display:flex;justify-content:space-between;gap:16px}
-.notice a{color:var(--ink)}
-
-/* Hero */
-.hero{position:relative;min-height:calc(100svh - 40px);overflow:hidden;isolation:isolate;display:grid;grid-template-rows:auto 1fr}
-.hero-photo{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;object-position:68% 30%;filter:brightness(.8) saturate(.9)}
-.hero::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(17,17,17,.92) 0%,rgba(17,17,17,.7) 38%,rgba(17,17,17,0) 70%)}
-.bar{display:flex;align-items:center;justify-content:space-between;padding:22px var(--m);font-size:var(--step-small)}
-.wordmark{font-weight:800;font-stretch:150%;text-transform:uppercase;letter-spacing:.02em;text-decoration:none;font-size:1rem}
-.bar nav{display:flex;gap:28px;align-items:center}
-.bar nav a{text-decoration:none;font-weight:500}
-.menu-btn{display:none;background:none;border:0;padding:12px 0 12px 12px;font-weight:600;cursor:pointer}
-.hero-copy{padding:clamp(40px,7vh,96px) var(--m) 0;max-width:640px}
-.hero h1{font-size:var(--step-head);font-weight:700;font-stretch:112%;line-height:1;letter-spacing:-.03em;max-width:13ch;text-wrap:balance}
-.hero-lead{margin-top:28px;font-size:var(--step-lead);line-height:1.4;max-width:34ch}
-.hero-actions{display:flex;flex-wrap:wrap;gap:14px 28px;align-items:center;margin-top:36px}
-.monument{position:absolute;left:-.07em;bottom:-.1em;z-index:0;margin:0;white-space:nowrap;font-size:clamp(220px,27vw,560px);color:var(--ink);pointer-events:none;transform-origin:30% 100%}
-
-/* Ritual */
-.ritual-panel{position:relative;height:100svh;overflow:hidden;isolation:isolate}
-.ritual-panel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;filter:brightness(.62)}
-.ritual-panel::after{content:"";position:absolute;left:0;bottom:0;width:min(640px,100%);height:58%;z-index:-1;background:linear-gradient(20deg,rgba(17,17,17,.88) 0%,rgba(17,17,17,.6) 45%,rgba(17,17,17,0) 75%)}
-.verb-hold{position:absolute;inset:0;padding-top:calc(50svh - .45em);font-size:clamp(84px,15vw,260px);pointer-events:none}
-.verb{position:sticky;top:calc(50svh - .45em);text-align:center;font-size:inherit;font-stretch:125%;color:var(--ink)}
-.ritual-text{position:absolute;left:var(--m);bottom:var(--m);max-width:40ch;font-size:var(--step-body)}
-.ritual-text strong{display:block;font-size:var(--step-lead);font-weight:600;margin-bottom:8px;line-height:1.3}
-
-/* Precios + reserva */
-.prices{padding:clamp(96px,10vw,160px) var(--m)}
-.prices-grid{display:grid;grid-template-columns:minmax(0,600px) minmax(0,420px);justify-content:space-between;gap:64px;align-items:start;max-width:1280px;margin:0 auto}
-.price-col{container-type:inline-size}
-.price-word{font-size:16.4cqw;margin:0 0 6px;color:var(--ink)}
-.price-intro{margin:28px 0 28px;max-width:46ch}
-.cat{background:var(--surface);margin-bottom:6px}
-.cat summary{list-style:none;min-height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;font-weight:600;cursor:pointer}
-.cat summary::-webkit-details-marker{display:none}
-.cat summary span{font-weight:400;color:var(--muted);font-size:var(--step-small);margin-left:auto;margin-right:18px}
-.plus{width:14px;height:14px;position:relative;flex:none}
-.plus::before,.plus::after{content:"";position:absolute;left:0;top:6px;width:14px;height:2px;background:currentColor;transition:transform .25s var(--ease-out)}
-.plus::after{transform:rotate(90deg)}
-.cat[open] .plus::after{transform:rotate(0)}
-.items{padding:0 8px 12px}
-.item{display:grid;grid-template-columns:28px 1fr auto;gap:4px 12px;align-items:start;padding:12px;cursor:pointer;transition:background-color .2s ease}
-.item input{appearance:none;margin:3px 0 0;width:22px;height:22px;background:var(--surface-2);display:grid;place-items:center;cursor:pointer;transition:background-color .15s ease}
-.item input::after{content:"";width:10px;height:6px;border:solid var(--accent-ink);border-width:0 0 2px 2px;transform:rotate(-45deg) scale(.4);opacity:0;margin-top:-3px;transition:transform .2s var(--ease-out),opacity .15s}
-.item input:checked{background:var(--accent)}
-.item input:checked::after{opacity:1;transform:rotate(-45deg) scale(1)}
-.item:has(input:checked){background:var(--surface-2)}
-.item-name{font-weight:500}
-.item-desc{grid-column:2/4;color:var(--muted);font-size:var(--step-small)}
-.item-price{font-variant-numeric:tabular-nums;font-weight:600}
-.price-note{margin-top:18px;color:var(--muted);font-size:var(--step-small)}
-@media (hover:hover) and (pointer:fine){.item:hover{background:var(--surface-2)}}
-
-.visit{position:sticky;top:24px;background:var(--surface);padding:32px}
-.visit h3{font-size:var(--step-lead);font-weight:700;font-stretch:112%;letter-spacing:-.01em}
-.visit-empty{color:var(--muted);margin-top:12px}
-.visit-list{list-style:none;margin:16px 0 0;padding:0}
-.visit-list li{display:flex;justify-content:space-between;gap:12px;padding:6px 0;animation:pop .35s var(--ease-out)}
-.visit-total{display:flex;justify-content:space-between;align-items:baseline;margin-top:18px;padding-top:18px}
-.visit-total strong{font-size:var(--step-lead);font-weight:800;font-stretch:125%;line-height:1;font-variant-numeric:tabular-nums}
-.visit-time{color:var(--muted);font-size:var(--step-small)}
-fieldset{border:0;margin:26px 0 0;padding:0}
-legend{font-weight:600;margin-bottom:10px;padding:0}
-.days{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
-.chip{position:relative}
-.chip input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
-.chip span{display:grid;place-items:center;min-height:46px;background:var(--surface-2);font-size:var(--step-small);font-weight:600;transition:background-color .15s ease,color .15s ease,transform .12s var(--ease-out)}
-.chip input:checked+span{background:var(--ink);color:var(--bg)}
-.chip input:focus-visible+span{outline:2px solid var(--accent);outline-offset:2px}
-.chip:active span{transform:scale(.95)}
-.fields{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px}
-.field{width:100%;min-height:52px;background:var(--surface-2);border:0;padding:0 14px;font-size:16px;color:var(--ink)}
-.field::placeholder{color:var(--muted)}
-.visit .btn{width:100%;margin-top:22px}
-.visit-foot{margin-top:14px;color:var(--muted);font-size:var(--step-small)}
-
-/* Lo que incluye */
-.included{padding:clamp(48px,6vw,96px) var(--m) clamp(56px,5vw,80px)}
-.included h2{font-size:var(--step-lead);font-weight:700;font-stretch:112%;margin-bottom:72px}
-.inc-grid{display:grid;grid-template-columns:repeat(12,1fr);column-gap:24px}
-.inc-col{grid-column:span 3}
-.inc-col h3{font-size:var(--step-body);font-weight:600;margin-bottom:1.25em}
-.inc-col ul{list-style:none;margin:0;padding:0}
-.inc-col li{color:var(--muted);line-height:1.3;padding:5px 0;cursor:default;transition:color .2s ease}
-.inc-col li:hover,.inc-col li:focus{color:var(--ink);outline:none}
-.inc-col p{display:none}
-.inc-detail{grid-column:10/13;grid-row:1;color:var(--ink);min-height:3em}
-.inc-detail span{display:block;color:var(--muted);font-size:var(--step-small);margin-bottom:6px}
-
-/* Galería */
-.gallery{background:var(--surface);padding:clamp(72px,7vw,112px) var(--m);display:grid;grid-template-columns:repeat(12,1fr);column-gap:24px;align-items:start;overflow:hidden}
-.gallery-copy{grid-column:1/8}
-.gallery h2{font-size:min(8.4vw,150px);color:var(--ink)}
-.gallery-note{margin-top:40px;max-width:30ch;font-size:var(--step-lead);line-height:1.35}
-.prints{grid-column:8/13;position:relative;height:min(40vw,600px)}
-.print{position:absolute;margin:0;padding:8px;background:var(--ink);transition:transform .35s var(--ease-out)}
-.print img{width:100%;object-fit:cover}
-.print.a{width:56%;left:0;top:4%;transform:rotate(-7deg);z-index:1}
-.print.a img{aspect-ratio:3/4}
-.print.b{width:52%;right:0;top:18%;transform:rotate(5deg);z-index:2}
-.print.b img{aspect-ratio:3/4;object-position:50% 50%}
-.print.c{width:40%;left:24%;bottom:0;transform:rotate(-2deg);z-index:3}
-.print.c img{aspect-ratio:4/3}
-@media (hover:hover) and (pointer:fine){
-  .print:hover{z-index:4;transform:rotate(0) scale(1.02)}
-}
-/* FAQ */
-.faq{padding:clamp(72px,7vw,112px) var(--m) clamp(96px,10vw,160px);overflow-x:clip}
-.faq h2{font-size:var(--step-head);font-weight:700;font-stretch:125%;letter-spacing:-.03em;line-height:1}
-.faq-list{display:grid;grid-template-columns:repeat(12,1fr);margin-top:80px}
-.faq-list>div{grid-column:5/13;display:grid;gap:12px}
-.q{margin:0 -24px;padding:0 24px;transition:background-color .25s ease}
-.q[open]{background:var(--surface)}
-.q summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:24px;padding:18px 0;font-size:var(--step-lead);cursor:pointer}
-.q summary::-webkit-details-marker{display:none}
-.chev{width:12px;height:12px;flex:none;border:solid currentColor;border-width:0 2px 2px 0;transform:rotate(45deg) translate(-3px,-3px);transition:transform .25s var(--ease-out)}
-.q[open] .chev{transform:rotate(-135deg)}
-.q p{padding:0 0 24px;max-width:48ch}
-
-/* Contacto */
-.contact{container-type:inline-size;background:var(--ink);color:var(--bg);display:grid;grid-template-rows:auto 1fr auto;padding:var(--m)}
-.contact-lead{font-size:var(--step-lead);max-width:26ch;line-height:1.35}
-.contact h2{align-self:end;margin:clamp(88px,9vw,140px) 0 48px}
-.contact h2 a{display:block;text-decoration:none;font-size:calc(100cqw / 8.4);transition:color .25s ease}
-.contact-foot{display:flex;justify-content:space-between;gap:24px;font-size:var(--step-small)}
-.contact-foot a{font-weight:600}
-@media (hover:hover) and (pointer:fine){.contact h2 a:hover{color:#6e5a4b}}
-
-/* Footer */
-footer{padding:72px var(--m) 28px;overflow:hidden}
-.foot-inner{container-type:inline-size}
-.foot-name{font-size:calc(100cqw / 7.75);margin:0 0 0 -.04em;white-space:nowrap}
-.foot-row{display:grid;grid-template-columns:repeat(12,1fr);gap:24px;margin-top:72px}
-.foot-about{grid-column:1/6;font-size:var(--step-lead);line-height:1.35}
-.foot-about a{color:var(--accent)}
-.foot-links{grid-column:8/13;display:grid;grid-template-columns:1fr 1fr;gap:8px 24px;align-content:start}
-.foot-links a{text-decoration:none;color:var(--muted)}
-.foot-legal{display:flex;justify-content:space-between;gap:16px;margin-top:96px;font-size:var(--step-small);color:var(--muted)}
-@media (hover:hover) and (pointer:fine){.foot-links a:hover{color:var(--ink)}}
-
-/* Barra móvil */
-.dock{display:none}
-
-/* Movimiento. Lo arma el script con GSAP; sin JS o con movimiento reducido todo queda visible y quieto. */
-@keyframes pop{from{transform:translateY(6px)}}
-html.lenis,html.lenis body{height:auto}
-.lenis.lenis-smooth{scroll-behavior:auto!important}
-.monument span{display:inline-block}
-.w{display:inline-block;white-space:nowrap;overflow:hidden;vertical-align:top;padding:0 .02em .08em;margin:0 -.02em -.08em}
-.ch{display:inline-block}
-/* El verbo está cortado en diagonal, como una pasada de navaja; quieto, las dos mitades forman la palabra */
-.verb{display:block}
-.cut-a{display:block;clip-path:polygon(-5% -10%,105% -10%,105% 47%,-5% 63%)}
-.cut-b{position:absolute;left:0;right:0;top:0;clip-path:polygon(-5% 60%,105% 44%,105% 110%,-5% 110%)}
-.verb-hold .verb{position:sticky}
-.is-pinned #ritual{position:relative;height:100svh;overflow:hidden}
-.is-pinned .ritual-panel{position:absolute;inset:0;height:auto}
-.is-pinned .verb-hold{padding:0;display:grid;place-items:center}
-.is-pinned .verb-hold .verb{position:relative;top:auto}
-
-/* Tablet */
-@media (max-width:1000px){
-  .prices-grid{grid-template-columns:1fr;gap:56px}
-  .price-col{max-width:640px}
-  .visit{position:relative;top:0}
-  .inc-col{grid-column:span 4}
-  .inc-detail{display:none}
-  .inc-col p{display:block;color:var(--ink);margin-top:14px;font-size:var(--step-small)}
-  .faq-list>div{grid-column:3/13}
-  .gallery{display:block}
-  .gallery h2{font-size:13.5vw}
-  .prints{height:min(86vw,640px);max-width:680px;margin-top:56px}
-}
-
-/* Teléfono */
-@media (max-width:640px){
-  :root{--m:20px}
-  .notice{flex-direction:column;gap:2px}
-  .bar nav{display:none}
-  .bar nav.open{display:flex;position:absolute;top:64px;left:var(--m);right:var(--m);flex-direction:column;align-items:flex-start;gap:4px;padding:12px 20px;background:var(--surface);z-index:5}
-  .bar nav.open a{padding:10px 0;font-size:var(--step-body)}
-  .menu-btn{display:block}
-  .hero{min-height:calc(100svh - 58px)}
-  .hero-photo{object-position:72% 20%}
-  .hero::before{background:linear-gradient(180deg,rgba(17,17,17,.9) 0%,rgba(17,17,17,.62) 48%,rgba(17,17,17,.05) 100%)}
-  .hero-copy{padding-top:28px;padding-right:var(--m);max-width:none}
-  .hero h1{font-size:2.125rem;max-width:11ch}
-  .hero-lead{font-size:var(--step-body);margin-top:20px;max-width:30ch}
-  .hero-actions{flex-direction:column;align-items:flex-start;gap:18px;margin-top:28px}
-  .monument{font-size:46vw;bottom:-.08em}
-  .ritual-panel img{object-position:60% center}
-  .ritual-panel::after{width:100%;height:62%;background:linear-gradient(0deg,rgba(17,17,17,.92) 0%,rgba(17,17,17,.55) 55%,rgba(17,17,17,0) 100%)}
-  .verb-hold{font-size:16vw}
-  .ritual-text{right:var(--m)}
-  .visit{padding:24px 20px}
-  .days{grid-template-columns:repeat(3,1fr)}
-  .fields{grid-template-columns:1fr}
-  .included h2{margin-bottom:40px}
-  .inc-grid{display:block}
-  .inc-col+.inc-col{margin-top:40px}
-  .inc-col li{font-size:1.125rem;line-height:1.4;color:var(--ink)}
-  .inc-col p{color:var(--muted)}
-  .gallery{display:block;padding:80px var(--m)}
-  .gallery h2{font-size:14vw}
-  .gallery-note{margin-top:24px;font-size:var(--step-body)}
-  .prints{height:118vw;margin-top:48px}
-  .print.a{width:60%}
-  .print.b{width:56%;top:22%}
-  .print.c{width:52%;left:10%}
-  .faq h2{font-size:10vw}
-  .faq-list{display:block;margin-top:40px}
-  .q{margin:0 -20px;padding:0 20px}
-  .q summary{font-size:1.1875rem}
-  .contact-foot{flex-direction:column;gap:12px;font-size:15px}
-  .foot-row{display:block;margin-top:40px}
-  .foot-links{margin-top:40px}
-  .foot-legal{margin-top:56px;flex-direction:column}
-  footer{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
-  .dock{display:flex;transition:transform .3s var(--ease-out);position:fixed;left:0;right:0;bottom:0;z-index:20;gap:12px;align-items:center;justify-content:space-between;padding:12px 20px calc(12px + env(safe-area-inset-bottom,0px));background:var(--surface)}
-  .dock.away{transform:translateY(110%)}
-  .dock .btn{min-height:48px;padding:0 20px}
-  .dock-sum{font-size:var(--step-small);color:var(--muted)}
-  .dock-sum strong{display:block;color:var(--ink);font-size:var(--step-body);font-variant-numeric:tabular-nums}
-}
-@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0a0a0b">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Sharp Society: barbería por cita en San Cristóbal, Táchira. Corte, barba con navaja y membresía mensual. Proyecto demostrativo de AB Web Studio.">
+  <title>Sharp Society · Barbería en San Cristóbal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/" } }</script>
 </head>
 <body>
-<div class="notice"><span>Proyecto demostrativo de <a href="https://instagram.com/estudioabweb">AB Web Studio</a>. Navaja 58 es una barbería ficticia.</span><span>Los precios y horarios son de referencia.</span></div>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <p class="notice">Proyecto demostrativo de <a href="https://instagram.com/estudioabweb">AB Web Studio</a>. Sharp Society es una barbería ficticia; precios y horarios son de ejemplo.</p>
 
-<header class="hero" id="inicio">
-  <img class="hero-photo" src="assets/barber-hero-1600.jpg" srcset="assets/barber-hero-800.jpg 800w, assets/barber-hero-1600.jpg 1600w" sizes="100vw" width="1600" height="694" alt="Barbero haciendo un corte a tijera en el local">
-  <div class="bar">
-    <a class="wordmark" href="#inicio">Navaja 58</a>
-    <nav id="nav" aria-label="Principal"><a href="#ritual">El ritual</a><a href="#precios">Precios</a><a href="#preguntas">Preguntas</a><a class="btn" href="#precios">Reservar</a></nav>
-    <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="nav">Menú</button>
-  </div>
-  <div class="hero-copy">
-    <h1>Barbería en San Cristóbal</h1>
-    <p class="hero-lead">Trabajamos por cita: corte a tijera y máquina, barba con navaja y toalla caliente. Eliges servicio y hora aquí, confirmas por WhatsApp y llegas sin hacer cola.</p>
-    <div class="hero-actions">
-      <a class="btn" href="#precios">Arma tu visita <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      <a class="link" href="#ritual">Cómo trabajamos</a>
+  <canvas class="razor-canvas" aria-hidden="true"></canvas>
+
+  <header class="hero" id="inicio">
+    <div class="bar">
+      <a class="wordmark" href="#inicio">Sharp Society</a>
+      <nav class="links" id="nav" aria-label="Principal">
+        <a href="#servicios">Servicios</a>
+        <a href="#society">Membresía</a>
+        <a href="#preguntas">Preguntas</a>
+        <a class="btn btn-sm" href="#servicios">Reservar</a>
+      </nav>
+      <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menú</button>
     </div>
-  </div>
-  <p class="monument display" aria-hidden="true"><span style="--i:0">N</span><span style="--i:1">A</span><span style="--i:2">V</span><span style="--i:3">A</span><span style="--i:4">J</span><span style="--i:5">A</span></p>
-</header>
-
-<main>
-<section id="ritual" aria-label="El ritual">
-  <article class="ritual-panel">
-    <img src="assets/service-cut-1600.jpg" srcset="assets/service-cut-800.jpg 800w, assets/service-cut-1600.jpg 1600w" sizes="100vw" width="1600" height="900" alt="Barbero marcando un degradado con máquina" loading="lazy">
-    <div class="verb-hold"><h2 class="verb display"><span class="cut-a">Cortar</span><span class="cut-b" aria-hidden="true">Cortar</span></h2></div>
-    <p class="ritual-text" data-rise><strong>Cinco minutos de conversación antes de tocar la máquina.</strong>Cómo te peinas, cada cuánto vuelves y qué no te gusta del corte que traes. Después, tijera y máquina a la forma de tu cabeza.</p>
-  </article>
-  <article class="ritual-panel">
-    <img src="assets/service-beard-1600.jpg" srcset="assets/service-beard-800.jpg 800w, assets/service-beard-1600.jpg 1600w" sizes="100vw" width="1600" height="1067" alt="Afeitado con navaja, espuma de brocha y toalla caliente" loading="lazy">
-    <div class="verb-hold"><h2 class="verb display"><span class="cut-a">Afeitar</span><span class="cut-b" aria-hidden="true">Afeitar</span></h2></div>
-    <p class="ritual-text" data-rise><strong>Toalla caliente, espuma de brocha y una hoja nueva por cliente.</strong>Perfilamos la barba según la forma de tu cara y cerramos con bálsamo frío.</p>
-  </article>
-  <article class="ritual-panel">
-    <img src="assets/finished-look-1600.jpg" srcset="assets/finished-look-800.jpg 800w, assets/finished-look-1600.jpg 1600w" sizes="100vw" width="1600" height="1067" alt="Cliente con el corte y la barba terminados, sentado en la silla" loading="lazy">
-    <div class="verb-hold"><h2 class="verb display"><span class="cut-a">Rematar</span><span class="cut-b" aria-hidden="true">Rematar</span></h2></div>
-    <p class="ritual-text" data-rise><strong>Lavado, producto y peinado.</strong>Te decimos qué usar en casa para que el corte se vea igual el lunes que el sábado.</p>
-  </article>
-</section>
-
-<section class="prices" id="precios" aria-labelledby="precios-titulo">
-  <div class="prices-grid">
-    <div class="price-col">
-      <h2 class="price-word display" id="precios-titulo" data-rise>Precios</h2>
-      <p class="price-intro" data-rise="2">Marca lo que quieres hacerte. A la derecha ves el total y el tiempo, y armas el mensaje para pedir tu turno.</p>
-      <form id="services" data-rise="3">
-        <details class="cat" open>
-          <summary>Cortes <span>4 servicios</span><i class="plus" aria-hidden="true"></i></summary>
-          <div class="items">
-            <label class="item"><input type="checkbox" name="s" data-name="Corte clásico" data-price="6" data-min="40"><span class="item-name">Corte clásico</span><span class="item-price">$6</span><span class="item-desc">Máquina y tijera, lavado incluido · 40 min</span></label>
-            <label class="item"><input type="checkbox" name="s" data-name="Degradado" data-price="7" data-min="45"><span class="item-name">Degradado</span><span class="item-price">$7</span><span class="item-desc">Fade bajo, medio o alto, con navaja en la nuca · 45 min</span></label>
-            <label class="item"><input type="checkbox" name="s" data-name="Corte a tijera" data-price="8" data-min="50"><span class="item-name">Corte a tijera</span><span class="item-price">$8</span><span class="item-desc">Para cabello largo o con textura · 50 min</span></label>
-            <label class="item"><input type="checkbox" name="s" data-name="Corte niño" data-price="5" data-min="30"><span class="item-name">Corte niño</span><span class="item-price">$5</span><span class="item-desc">Hasta 12 años · 30 min</span></label>
-          </div>
-        </details>
-        <details class="cat">
-          <summary>Barba <span>3 servicios</span><i class="plus" aria-hidden="true"></i></summary>
-          <div class="items">
-            <label class="item"><input type="checkbox" name="s" data-name="Perfilado de barba" data-price="4" data-min="20"><span class="item-name">Perfilado de barba</span><span class="item-price">$4</span><span class="item-desc">Forma y líneas con navaja · 20 min</span></label>
-            <label class="item"><input type="checkbox" name="s" data-name="Afeitado con toalla caliente" data-price="6" data-min="30"><span class="item-name">Afeitado con toalla caliente</span><span class="item-price">$6</span><span class="item-desc">Navaja, espuma de brocha y bálsamo · 30 min</span></label>
-            <label class="item"><input type="checkbox" name="s" data-name="Barba con diseño" data-price="5" data-min="25"><span class="item-name">Barba con diseño</span><span class="item-price">$5</span><span class="item-desc">Perfilado con líneas o degradado · 25 min</span></label>
-          </div>
-        </details>
-        <details class="cat">
-          <summary>Combos <span>2 servicios</span><i class="plus" aria-hidden="true"></i></summary>
-          <div class="items">
-            <label class="item"><input type="checkbox" name="s" data-name="Corte y barba" data-price="11" data-min="70"><span class="item-name">Corte y barba</span><span class="item-price">$11</span><span class="item-desc">Corte clásico o degradado con perfilado · 70 min</span></label>
-            <label class="item"><input type="checkbox" name="s" data-name="Servicio completo" data-price="15" data-min="90"><span class="item-name">Servicio completo</span><span class="item-price">$15</span><span class="item-desc">Corte, afeitado con toalla caliente, lavado y mascarilla · 90 min</span></label>
-          </div>
-        </details>
-        <details class="cat">
-          <summary>Extras <span>3 servicios</span><i class="plus" aria-hidden="true"></i></summary>
-          <div class="items">
-            <label class="item"><input type="checkbox" name="s" data-name="Lavado y masaje" data-price="3" data-min="15"><span class="item-name">Lavado y masaje capilar</span><span class="item-price">$3</span><span class="item-desc">15 min</span></label>
-            <label class="item"><input type="checkbox" name="s" data-name="Cejas con navaja" data-price="2" data-min="10"><span class="item-name">Cejas con navaja</span><span class="item-price">$2</span><span class="item-desc">10 min</span></label>
-            <label class="item"><input type="checkbox" name="s" data-name="Mascarilla negra" data-price="4" data-min="15"><span class="item-name">Mascarilla negra</span><span class="item-price">$4</span><span class="item-desc">15 min</span></label>
-          </div>
-        </details>
-      </form>
-      <p class="price-note">Pagas al terminar: efectivo en dólares o pesos, Pago Móvil, Zelle, Bancolombia o Nequi.</p>
-    </div>
-
-    <aside class="visit" aria-labelledby="visita-titulo" data-rise="2">
-      <h3 id="visita-titulo">Tu visita</h3>
-      <p class="visit-empty" id="visit-empty">Todavía no marcas ningún servicio.</p>
-      <ul class="visit-list" id="visit-list" aria-live="polite"></ul>
-      <div class="visit-total"><span>Total · <span id="visit-time">0 min</span></span><strong id="visit-total">$0</strong></div>
-      <fieldset>
-        <legend>Día</legend>
-        <div class="days">
-          <label class="chip"><input type="radio" name="dia" value="lunes" checked><span>Lun</span></label>
-          <label class="chip"><input type="radio" name="dia" value="martes"><span>Mar</span></label>
-          <label class="chip"><input type="radio" name="dia" value="miércoles"><span>Mié</span></label>
-          <label class="chip"><input type="radio" name="dia" value="jueves"><span>Jue</span></label>
-          <label class="chip"><input type="radio" name="dia" value="viernes"><span>Vie</span></label>
-          <label class="chip"><input type="radio" name="dia" value="sábado"><span>Sáb</span></label>
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <h1 class="hero-title"><span>Cortes precisos.</span> <span>Cero espera.</span></h1>
+        <p class="hero-lead">Barbería por cita en San Cristóbal. Eliges servicio y hora, confirmas por WhatsApp y te sientas a la hora que dijimos.</p>
+        <div class="hero-actions">
+          <a class="btn btn-accent magnetic" href="#servicios">Reservar turno</a>
+          <a class="btn btn-ghost magnetic" href="#oficio">Cómo trabajamos</a>
         </div>
-      </fieldset>
-      <div class="fields">
-        <label class="vh" for="hora">Hora</label>
-        <select class="field" id="hora"><option value="">Hora</option><option>9:00</option><option>10:00</option><option>11:00</option><option>12:00</option><option>14:00</option><option>15:00</option><option>16:00</option><option>17:00</option><option>18:00</option></select>
-        <label class="vh" for="nombre">Tu nombre</label>
-        <input class="field" id="nombre" placeholder="Tu nombre" autocomplete="given-name" enterkeyhint="send">
       </div>
-      <a class="btn" id="send" href="https://wa.me/?text=Hola%20Navaja%2058%2C%20quiero%20pedir%20un%20turno." target="_blank" rel="noopener">Pedir turno por WhatsApp</a>
-      <p class="visit-foot">En la página real este botón abre el chat del local con el mensaje escrito. Aquí es una demostración.</p>
-    </aside>
-  </div>
-</section>
-
-<section class="included" aria-labelledby="incluye-titulo">
-  <h2 id="incluye-titulo" data-rise>Lo que viene con la cita</h2>
-  <div class="inc-grid">
-    <div class="inc-col" data-rise>
-      <h3>En la silla</h3>
-      <ul><li tabindex="0" data-d="Antes de cortar preguntamos y miramos. Si lo que pides no te va a durar, te lo decimos.">Consulta antes de cortar</li><li tabindex="0" data-d="Agua tibia y champú según tu cuero cabelludo.">Lavado con agua tibia</li><li tabindex="0" data-d="Abre el poro y hace que la navaja pase sin irritar.">Toalla caliente</li><li tabindex="0" data-d="La hoja se cambia delante de ti en cada servicio.">Hoja nueva por cliente</li><li tabindex="0" data-d="Te enseñamos cuánto producto usar y cómo aplicarlo.">Peinado con producto</li></ul>
-      <p>Cada cita empieza con una conversación y termina con el peinado hecho.</p>
+      <figure class="hero-fallback"><img src="assets/tools-black.jpg" alt="Navaja, tijeras, peine y máquina sobre una mesa negra" width="1800" height="1200"></figure>
     </div>
-    <div class="inc-col" data-rise="2">
-      <h3>En el local</h3>
-      <ul><li tabindex="0" data-d="Café tachirense colado al momento, mientras esperas o mientras te cortan.">Café de la casa</li><li tabindex="0" data-d="Un cliente por barbero. Nadie te apura porque hay cola.">Una cita a la vez</li><li tabindex="0" data-d="Tres puestos con su propio espejo y luz.">Tres sillas</li><li tabindex="0" data-d="Para que trabajes o veas el partido mientras esperas.">Wi‑Fi</li><li tabindex="0" data-d="Si llegas temprano, te esperamos con algo de tomar.">Sala de espera</li></ul>
-      <p>Un barbero por cliente, café colado y nadie esperando de pie.</p>
+    <ul class="hero-facts">
+      <li>Lunes a sábado, 9:00 a 19:00</li>
+      <li>San Cristóbal, Táchira</li>
+      <li>Pago Móvil, Zelle, Bancolombia, Nequi</li>
+    </ul>
+  </header>
+
+  <main id="contenido">
+    <section class="story" id="oficio" aria-labelledby="oficio-titulo">
+      <div class="story-stage">
+        <h2 id="oficio-titulo" class="story-label">Cómo trabajamos</h2>
+        <ol class="story-steps">
+          <li class="step is-active"><p class="step-word">Escuchar.</p><p class="step-text">Cinco minutos antes de tocar la máquina: cómo te peinas, cada cuánto vuelves y qué no te gustó del último corte.</p></li>
+          <li class="step"><p class="step-word">Cortar.</p><p class="step-text">Tijera y máquina a la forma de tu cabeza. Degradados limpios, sin escalones, revisados con espejo de mano.</p></li>
+          <li class="step"><p class="step-word">Afeitar.</p><p class="step-text">Toalla caliente, espuma de brocha y una hoja nueva por cliente. Cerramos con bálsamo frío.</p></li>
+        </ol>
+        <div class="story-dots" aria-hidden="true"><span class="is-active"></span><span></span><span></span></div>
+      </div>
+    </section>
+
+    <section class="services" id="servicios" aria-labelledby="servicios-titulo">
+      <div class="services-head">
+        <h2 id="servicios-titulo">Servicios y precios</h2>
+        <p>Toca lo que quieres hacerte. A la derecha se suma el total y armas tu cita.</p>
+      </div>
+      <div class="services-grid">
+        <ul class="service-list" id="service-list">
+          <li><button class="svc" type="button" aria-pressed="false" data-name="Corte clásico" data-price="6" data-min="40" data-img="assets/tools-black.jpg"><span class="svc-name">Corte clásico</span><span class="svc-meta">Máquina y tijera, lavado incluido · 40 min</span><span class="svc-price">$6</span></button></li>
+          <li><button class="svc" type="button" aria-pressed="false" data-name="Degradado" data-price="7" data-min="45" data-img="assets/tools-slate.jpg"><span class="svc-name">Degradado</span><span class="svc-meta">Bajo, medio o alto, con navaja en la nuca · 45 min</span><span class="svc-price">$7</span></button></li>
+          <li><button class="svc" type="button" aria-pressed="false" data-name="Corte a tijera" data-price="8" data-min="50" data-img="assets/tools-orange.jpg"><span class="svc-name">Corte a tijera</span><span class="svc-meta">Para cabello largo o con textura · 50 min</span><span class="svc-price">$8</span></button></li>
+          <li><button class="svc" type="button" aria-pressed="false" data-name="Perfilado de barba" data-price="4" data-min="20" data-img="assets/razor-dovo.jpg"><span class="svc-name">Perfilado de barba</span><span class="svc-meta">Forma y líneas con navaja · 20 min</span><span class="svc-price">$4</span></button></li>
+          <li><button class="svc" type="button" aria-pressed="false" data-name="Afeitado con toalla caliente" data-price="6" data-min="30" data-img="assets/razor-dovo.jpg"><span class="svc-name">Afeitado con toalla caliente</span><span class="svc-meta">Navaja, espuma de brocha y bálsamo · 30 min</span><span class="svc-price">$6</span></button></li>
+          <li><button class="svc" type="button" aria-pressed="false" data-name="Corte y barba" data-price="11" data-min="70" data-img="assets/tools-black.jpg"><span class="svc-name">Corte y barba</span><span class="svc-meta">El combo de siempre · 70 min</span><span class="svc-price">$11</span></button></li>
+          <li><button class="svc" type="button" aria-pressed="false" data-name="Corte niño" data-price="5" data-min="30" data-img="assets/tools-orange.jpg"><span class="svc-name">Corte niño</span><span class="svc-meta">Hasta 12 años · 30 min</span><span class="svc-price">$5</span></button></li>
+        </ul>
+        <aside class="booking" aria-labelledby="cita-titulo">
+          <h3 id="cita-titulo">Tu cita</h3>
+          <p class="booking-empty" id="booking-empty">Todavía no eliges servicio.</p>
+          <ul class="booking-list" id="booking-list" aria-live="polite"></ul>
+          <p class="booking-total"><span>Total · <span id="booking-time">0 min</span></span><strong id="booking-total">$0</strong></p>
+          <fieldset class="days">
+            <legend>Día</legend>
+            <label><input type="radio" name="dia" value="lunes" checked><span>Lun</span></label>
+            <label><input type="radio" name="dia" value="martes"><span>Mar</span></label>
+            <label><input type="radio" name="dia" value="miércoles"><span>Mié</span></label>
+            <label><input type="radio" name="dia" value="jueves"><span>Jue</span></label>
+            <label><input type="radio" name="dia" value="viernes"><span>Vie</span></label>
+            <label><input type="radio" name="dia" value="sábado"><span>Sáb</span></label>
+          </fieldset>
+          <div class="fields">
+            <label class="vh" for="hora">Hora</label>
+            <select id="hora"><option value="">Hora</option><option>9:00</option><option>10:00</option><option>11:00</option><option>12:00</option><option>14:00</option><option>15:00</option><option>16:00</option><option>17:00</option><option>18:00</option></select>
+            <label class="vh" for="nombre">Tu nombre</label>
+            <input id="nombre" placeholder="Tu nombre" autocomplete="given-name" enterkeyhint="send">
+          </div>
+          <a class="btn btn-accent btn-wide" id="send" href="https://wa.me/?text=Hola%20Sharp%20Society%2C%20quiero%20pedir%20un%20turno." target="_blank" rel="noopener">Pedir turno por WhatsApp</a>
+          <p class="fine">En la página real este botón abre el chat de la barbería con el mensaje escrito. Aquí es una demostración.</p>
+        </aside>
+      </div>
+      <figure class="hover-img" aria-hidden="true"><img src="assets/tools-black.jpg" alt=""></figure>
+    </section>
+
+    <section class="society" id="society" aria-labelledby="society-titulo">
+      <div class="society-copy">
+        <h2 id="society-titulo">La membresía Society</h2>
+        <p>Para quien se corta cada dos semanas. Pagas una vez al mes y tu turno del sábado queda apartado.</p>
+      </div>
+      <div class="card-wrap">
+        <article class="card" data-tilt>
+          <p class="card-name">Society</p>
+          <p class="card-price"><strong>$14</strong> al mes</p>
+          <ul class="card-list">
+            <li>Dos cortes al mes</li>
+            <li>Perfilado de barba incluido</li>
+            <li>Prioridad los sábados</li>
+            <li>10% en productos</li>
+          </ul>
+          <a class="btn btn-accent btn-wide" href="https://wa.me/?text=Hola%20Sharp%20Society%2C%20quiero%20la%20membres%C3%ADa." target="_blank" rel="noopener">Quiero la membresía</a>
+          <span class="card-shine" aria-hidden="true"></span>
+        </article>
+      </div>
+    </section>
+
+    <section class="craft" aria-labelledby="craft-titulo">
+      <h2 id="craft-titulo">Las herramientas</h2>
+      <div class="craft-track">
+        <figure class="craft-item"><img src="assets/tools-black.jpg" alt="Navaja, tijeras, peines y máquina sobre una alfombra negra" width="1800" height="1200" loading="lazy"><figcaption>Tijeras de entresacar y de corte, peine de degradado y la máquina de detalle.</figcaption></figure>
+        <figure class="craft-item tall"><img src="assets/razor-dovo.jpg" alt="Navaja de barbero con mango de madera oscura" width="1920" height="1920" loading="lazy"><figcaption>Navaja de hoja cambiable: una nueva por cada cliente.</figcaption></figure>
+        <figure class="craft-item"><img src="assets/tools-orange.jpg" alt="Tijeras, máquina, guías numeradas, cepillo de barba y peine" width="1800" height="1440" loading="lazy"><figcaption>Guías del 0,5 al 8 para que el degradado salga parejo.</figcaption></figure>
+        <figure class="craft-item"><img src="assets/tools-slate.jpg" alt="Máquina, tijeras y peine sobre una pizarra con productos de peinado" width="1800" height="1200" loading="lazy"><figcaption>Cera, pomada y aceite: te decimos cuál usar en casa.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="faq" id="preguntas" aria-labelledby="faq-titulo">
+      <h2 id="faq-titulo">Antes de venir</h2>
+      <div class="faq-list">
+        <details><summary>¿Tengo que reservar?<i aria-hidden="true"></i></summary><p>Trabajamos por cita para que nadie espere. Si hay una silla libre te atendemos igual, pero escribe antes.</p></details>
+        <details><summary>¿Qué pasa si llego tarde?<i aria-hidden="true"></i></summary><p>Te esperamos diez minutos. Después movemos tu turno al siguiente espacio libre del día.</p></details>
+        <details><summary>¿Cómo pago?<i aria-hidden="true"></i></summary><p>Al terminar: efectivo en dólares o pesos, Pago Móvil, Zelle, Bancolombia o Nequi.</p></details>
+        <details><summary>¿La membresía tiene permanencia?<i aria-hidden="true"></i></summary><p>No. Se paga mes a mes y la cancelas cuando quieras.</p></details>
+        <details><summary>¿Dónde quedan?<i aria-hidden="true"></i></summary><p>Esta página es una demostración. En la versión real aquí va la dirección exacta, el mapa y cómo llegar.</p></details>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <a class="footer-cta magnetic" href="#servicios">Reserva tu turno</a>
+    <div class="footer-row">
+      <p>Sharp Society · San Cristóbal, Táchira · dirección de ejemplo<br>Lunes a sábado, 9:00 a 19:00</p>
+      <p>Proyecto demostrativo: Sharp Society no existe. ¿Quieres una página así? <a href="https://instagram.com/estudioabweb">Escríbele a AB Web Studio</a>.</p>
+      <p class="credits">Fotos: Unsplash (herramientas) y Wikimedia Commons, <a href="https://commons.wikimedia.org/w/index.php?curid=132041079">«10681083 Bergischer Löwe 6-8th Ebenholz Straight Razor»</a> de SneRet, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>. Navaja 3D hecha en código.</p>
     </div>
-    <div class="inc-col" data-rise="3">
-      <h3>Al pagar</h3>
-      <ul><li tabindex="0" data-d="Te pasamos los datos al confirmar el turno.">Pago Móvil</li><li tabindex="0" data-d="Desde cualquier banco de Estados Unidos.">Zelle</li><li tabindex="0" data-d="Para quien trabaja o vive del lado colombiano.">Bancolombia y Nequi</li><li tabindex="0" data-d="Dólares o pesos, con el cambio del día.">Efectivo</li><li tabindex="0" data-d="Si la necesitas para tu empresa, pídela al llegar.">Factura</li></ul>
-      <p>Pagas al terminar, en bolívares, dólares o pesos.</p>
-    </div>
-    <p class="inc-detail" id="inc-detail" aria-live="polite"><span>Pasa el cursor por una línea</span>Cada servicio incluye lo que ves en estas listas, sin cobros aparte.</p>
+  </footer>
+
+  <div class="dock" id="dock" aria-label="Resumen de tu cita">
+    <span><strong id="dock-total">Arma tu cita</strong><span id="dock-time">Corte, barba o combo</span></span>
+    <a class="btn btn-accent btn-sm" href="#servicios">Reservar</a>
   </div>
-</section>
 
-<section class="gallery" aria-labelledby="galeria-titulo">
-  <div class="gallery-copy">
-    <h2 class="display" id="galeria-titulo" data-rise>Sales<br>distinto</h2>
-    <p class="gallery-note" data-rise="2">Tres sillas, luz cálida y una cita a la vez. Así se ve un sábado en el local.</p>
-  </div>
-  <div class="prints" data-rise="2">
-    <figure class="print a"><img src="assets/finished-look-800.jpg" width="800" height="533" alt="Cliente con barba perfilada y corte terminado" loading="lazy" style="object-position:40% 50%"></figure>
-    <figure class="print b"><img src="assets/studio-interior-800.jpg" width="800" height="315" alt="Una de las sillas del local con luz cálida" loading="lazy"></figure>
-    <figure class="print c"><img src="assets/service-beard-800.jpg" width="800" height="533" alt="Afeitado con navaja y toalla caliente" loading="lazy"></figure>
-  </div>
-</section>
-
-<section class="faq" id="preguntas" aria-labelledby="faq-titulo">
-  <h2 id="faq-titulo" data-rise>Antes de venir</h2>
-  <div class="faq-list"><div>
-    <details class="q"><summary>¿Tengo que reservar?<i class="chev" aria-hidden="true"></i></summary><p>Trabajamos por cita para que nadie espere. Si hay una silla libre te atendemos igual, pero escribe antes de venir.</p></details>
-    <details class="q"><summary>¿Cómo confirmo mi turno?<i class="chev" aria-hidden="true"></i></summary><p>Envías el mensaje desde esta página y te respondemos por WhatsApp con la hora confirmada.</p></details>
-    <details class="q"><summary>¿Qué pasa si llego tarde?<i class="chev" aria-hidden="true"></i></summary><p>Te esperamos diez minutos. Después movemos tu turno al siguiente espacio libre del día.</p></details>
-    <details class="q"><summary>¿Cómo pago?<i class="chev" aria-hidden="true"></i></summary><p>Al terminar, en efectivo (dólares o pesos), Pago Móvil, Zelle, Bancolombia o Nequi.</p></details>
-    <details class="q"><summary>¿Atienden niños?<i class="chev" aria-hidden="true"></i></summary><p>Sí, desde los cuatro años y con un adulto que los acompañe.</p></details>
-    <details class="q"><summary>¿Dónde quedan?<i class="chev" aria-hidden="true"></i></summary><p>Esta página es una demostración. En la versión real aquí va la dirección exacta, el mapa y cómo llegar.</p></details>
-  </div></div>
-</section>
-
-<section class="contact" id="contacto" aria-labelledby="contacto-titulo">
-  <p class="contact-lead">¿Prefieres escribir directo? Toca el nombre y te abrimos el chat.</p>
-  <h2 class="display" id="contacto-titulo"><a href="https://wa.me/?text=Hola%20Navaja%2058%2C%20quiero%20pedir%20un%20turno." target="_blank" rel="noopener">WhatsApp</a></h2>
-  <div class="contact-foot"><span>Lunes a viernes 9:00 a 19:00 · Sábados 9:00 a 17:00 · San Cristóbal, Táchira</span><span>Página hecha por <a href="https://instagram.com/estudioabweb">AB Web Studio</a></span></div>
-</section>
-</main>
-
-<footer>
-  <div class="foot-inner"><p class="foot-name display" aria-hidden="true">Navaja 58</p></div>
-  <div class="foot-row">
-    <p class="foot-about">Proyecto demostrativo. Navaja 58 no existe: es una muestra de cómo puede verse la página de una barbería. ¿Quieres una así para tu negocio? <a href="https://instagram.com/estudioabweb">Escríbele a AB Web Studio</a>.</p>
-    <nav class="foot-links" aria-label="Pie de página"><a href="#ritual">El ritual</a><a href="#precios">Precios</a><a href="#preguntas">Preguntas</a><a href="#contacto">Contacto</a></nav>
-  </div>
-  <div class="foot-legal"><span>© 2026 AB Web Studio · Demo</span><a href="#inicio">Volver arriba</a></div>
-</footer>
-
-<div class="dock away" aria-label="Resumen de tu visita">
-  <span class="dock-sum"><strong id="dock-total">Arma tu visita</strong><span id="dock-time">Corte, barba o combo</span></span>
-  <a class="btn" href="#precios">Ver precios</a>
-</div>
-
-<script>
-const menuBtn=document.getElementById("menu-btn"),nav=document.getElementById("nav");
-menuBtn.addEventListener("click",()=>{const open=nav.classList.toggle("open");menuBtn.setAttribute("aria-expanded",open);menuBtn.textContent=open?"Cerrar":"Menú"});
-nav.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>{nav.classList.remove("open");menuBtn.setAttribute("aria-expanded","false");menuBtn.textContent="Menú"}));
-
-const form=document.getElementById("services"),list=document.getElementById("visit-list"),empty=document.getElementById("visit-empty");
-const totalEl=document.getElementById("visit-total"),timeEl=document.getElementById("visit-time"),send=document.getElementById("send");
-const dockTotal=document.getElementById("dock-total"),dockTime=document.getElementById("dock-time"),hora=document.getElementById("hora"),nombre=document.getElementById("nombre");
-const fmtTime=m=>m>=60?`${Math.floor(m/60)} h ${m%60?m%60+" min":""}`.trim():`${m} min`;
-function update(){
-  const picked=[...form.querySelectorAll("input:checked")].map(i=>({name:i.dataset.name,price:+i.dataset.price,min:+i.dataset.min}));
-  const total=picked.reduce((s,p)=>s+p.price,0),min=picked.reduce((s,p)=>s+p.min,0);
-  list.innerHTML=picked.map(p=>`<li><span>${p.name}</span><span>$${p.price}</span></li>`).join("");
-  empty.hidden=picked.length>0;
-  totalEl.textContent=`$${total}`;timeEl.textContent=fmtTime(min);
-  dockTotal.textContent=picked.length?`$${total} · ${fmtTime(min)}`:"Arma tu visita";
-  dockTime.textContent=picked.length?picked.map(p=>p.name).join(", "):"Corte, barba o combo";
-  const dia=document.querySelector("input[name=dia]:checked").value,quien=nombre.value.trim();
-  let msg=`Hola Navaja 58${quien?", soy "+quien:""}. Quiero pedir un turno el ${dia}${hora.value?" a las "+hora.value:""}`;
-  msg+=picked.length?` para: ${picked.map(p=>p.name).join(", ")} (total $${total}, ${fmtTime(min)}).`:".";
-  send.href="https://wa.me/?text="+encodeURIComponent(msg);
-}
-document.querySelectorAll("#services input,input[name=dia],#hora,#nombre").forEach(el=>el.addEventListener(el.id==="nombre"?"input":"change",update));
-update();
-
-const dock=document.querySelector(".dock"),hideFor=new Set();
-const io=new IntersectionObserver(es=>{es.forEach(e=>e.isIntersecting?hideFor.add(e.target):hideFor.delete(e.target));dock.classList.toggle("away",hideFor.size>0)});
-document.querySelectorAll("#inicio,#precios,#contacto,footer").forEach(el=>io.observe(el));
-
-const detail=document.getElementById("inc-detail");
-document.querySelectorAll(".inc-col li").forEach(li=>{const show=()=>{detail.innerHTML=`<span>${li.closest(".inc-col").querySelector("h3").textContent} · ${li.textContent}</span>${li.dataset.d}`};li.addEventListener("mouseenter",show);li.addEventListener("focus",show)});
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-<script>
-(()=>{
-  if(!window.gsap||!window.ScrollTrigger||!matchMedia("(prefers-reduced-motion:no-preference)").matches)return;
-  gsap.registerPlugin(ScrollTrigger);
-  const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
-  const ease="expo.out";
-
-  // Desplazamiento suave; los enlaces internos pasan por Lenis
-  if(window.Lenis){
-    const lenis=new Lenis({lerp:.11});
-    lenis.on("scroll",ScrollTrigger.update);
-    gsap.ticker.add(t=>lenis.raf(t*1000));gsap.ticker.lagSmoothing(0);
-    $$('a[href^="#"]').forEach(a=>a.addEventListener("click",e=>{const t=$(a.getAttribute("href"));if(t){e.preventDefault();lenis.scrollTo(t,{duration:1.4})}}));
-  }
-
-  // Parte un título en palabras con máscara y letras; el lector de pantalla recibe el texto entero
-  function split(el){
-    el.setAttribute("aria-label",el.textContent.replace(/\s+/g," ").trim());
-    [...el.childNodes].forEach(n=>{
-      if(n.nodeType!==3)return;
-      const frag=document.createDocumentFragment();
-      n.textContent.split(/(\s+)/).forEach(part=>{
-        if(!part)return;
-        if(/^\s+$/.test(part)){frag.append(" ");return}
-        const w=document.createElement("span");w.className="w";w.setAttribute("aria-hidden","true");
-        [...part].forEach(c=>{const ch=document.createElement("span");ch.className="ch";ch.textContent=c;w.append(ch)});
-        frag.append(w);
-      });
-      n.replaceWith(frag);
-    });
-    return $$(".ch",el);
-  }
-
-  // Portada: la foto se abre, NAVAJA sube desde el borde y el texto entra detrás
-  const heroChars=split($(".hero h1"));
-  gsap.timeline({defaults:{ease}})
-    .from(".hero-photo",{scale:1.18,clipPath:"inset(10% 0% 10% 0%)",duration:1.8})
-    .from(".monument span",{yPercent:105,duration:1.4,stagger:.06},.15)
-    .from(heroChars,{yPercent:110,duration:1.1,stagger:.012},.35)
-    .from(".hero-lead,.hero-actions",{y:24,opacity:0,duration:1,stagger:.1},.7);
-  gsap.to(".monument",{xPercent:-9,ease:"none",scrollTrigger:{trigger:".hero",start:"top top",end:"bottom top",scrub:true}});
-  gsap.to(".hero-photo",{yPercent:14,scale:1.06,ease:"none",scrollTrigger:{trigger:".hero",start:"top top",end:"bottom top",scrub:true}});
-  gsap.to(".hero-copy",{y:-90,opacity:.25,ease:"none",scrollTrigger:{trigger:".hero",start:"top top",end:"bottom top",scrub:true}});
-
-  // El ritual: se fija la pantalla, la navaja corta el verbo y la siguiente foto entra en diagonal
-  const ritual=$("#ritual"),panels=$$(".ritual-panel",ritual);
-  document.documentElement.classList.add("is-pinned");
-  const closed="polygon(120% 0%,120% 0%,100% 100%,100% 100%)",open="polygon(0% 0%,120% 0%,100% 100%,-20% 100%)";
-  panels.forEach((p,i)=>{
-    gsap.set(p,{zIndex:i+1});
-    if(i){gsap.set(p,{clipPath:closed});gsap.set($(".cut-a",p),{xPercent:-12,opacity:0});gsap.set($(".cut-b",p),{xPercent:12,opacity:0});gsap.set($(".ritual-text",p),{y:40,opacity:0})}
-  });
-  const rt=gsap.timeline({defaults:{ease:"power2.inOut"},scrollTrigger:{trigger:ritual,start:"top top",end:()=>"+="+innerHeight*2.4,pin:true,scrub:.8,anticipatePin:1}});
-  panels.forEach((p,i)=>{
-    const next=panels[i+1];
-    rt.to($("img",p),{scale:1.08,duration:1,ease:"none"},i*1.2);
-    if(!next)return;
-    const at=i*1.2+.55;
-    rt.to($(".cut-a",p),{xPercent:-10,yPercent:-14,opacity:0,duration:.5},at)
-      .to($(".cut-b",p),{xPercent:10,yPercent:14,opacity:0,duration:.5},at)
-      .to($(".ritual-text",p),{y:-30,opacity:0,duration:.35},at)
-      .to(next,{clipPath:open,duration:.65},at+.1)
-      .from($("img",next),{scale:1.25,duration:.65},at+.1)
-      .to([$(".cut-a",next),$(".cut-b",next)],{xPercent:0,opacity:1,duration:.45,ease:"power3.out"},at+.45)
-      .to($(".ritual-text",next),{y:0,opacity:1,duration:.4,ease:"power3.out"},at+.55);
-  });
-
-  // Entradas por sección: una vez, de arriba abajo
-  // immediateRender:false: si el disparador nunca llega, el contenido sigue visible
-  const enter=(targets,trigger,vars={})=>gsap.from(targets,{y:32,opacity:0,duration:.9,ease,stagger:.06,immediateRender:false,...vars,scrollTrigger:{trigger,start:"top bottom",once:true}});
-  const precio=split($(".price-word"));
-  gsap.from(precio,{yPercent:105,duration:1.1,ease,stagger:.04,immediateRender:false,scrollTrigger:{trigger:".price-word",start:"top bottom",once:true}});
-  enter([".price-intro",...$$(".cat"),".price-note"],"#services");
-  enter(".visit",".visit",{y:56});
-  enter(".included h2",".included");
-  $$(".inc-col").forEach((c,i)=>enter([$("h3",c),...$$("li",c),$("p",c)],c,{delay:i*.08,stagger:.04,y:20}));
-
-  const salir=split($(".gallery h2"));
-  gsap.from(salir,{yPercent:110,duration:1.1,ease,stagger:.035,immediateRender:false,scrollTrigger:{trigger:".gallery h2",start:"top bottom",once:true}});
-  enter(".gallery-note",".gallery",{delay:.4});
-  $$(".print").forEach((p,i)=>gsap.from(p,{y:120+i*50,rotation:0,ease:"none",scrollTrigger:{trigger:".gallery",start:"top bottom",end:"top 25%",scrub:.6}}));
-
-  const faq=split($(".faq h2"));
-  gsap.from(faq,{yPercent:110,duration:1,ease,stagger:.025,immediateRender:false,scrollTrigger:{trigger:".faq h2",start:"top bottom",once:true}});
-  enter($$(".q"),".faq-list",{stagger:.06,y:20});
-
-  const wa=split($(".contact h2 a"));
-  gsap.from(wa,{yPercent:110,rotation:6,duration:1.2,ease,stagger:.05,immediateRender:false,scrollTrigger:{trigger:".contact h2",start:"top bottom",once:true}});
-  enter([".contact-lead",".contact-foot"],".contact",{stagger:.15});
-
-  const name=split($(".foot-name"));
-  gsap.from(name,{yPercent:100,ease:"none",stagger:.05,scrollTrigger:{trigger:"footer",start:"top bottom",end:"top 70%",scrub:.6}});
-
-  addEventListener("load",()=>ScrollTrigger.refresh());
-  document.fonts&&document.fonts.ready.then(()=>ScrollTrigger.refresh());
-})();
-</script>
+  <script src="app.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script type="module" src="scene.js"></script>
 </body>
 </html>
