@@ -5,24 +5,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#0a0a0b">
   <meta name="color-scheme" content="dark">
-  <meta name="description" content="Sharp Society: barbería por cita en San Cristóbal, Táchira. Corte, barba con navaja y membresía mensual. Proyecto demostrativo de AB Web Studio.">
+  <meta name="description" content="Sharp Society: barbería por cita en San Cristóbal, Táchira. Taper fade, low fade, mid fade, barba con navaja y membresía mensual. Proyecto demostrativo de AB Web Studio.">
   <title>Sharp Society · Barbería en San Cristóbal</title>
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/" } }</script>
 </head>
 <body>
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
   <p class="notice">Proyecto demostrativo de <a href="https://instagram.com/estudioabweb">AB Web Studio</a>. Sharp Society es una barbería ficticia; precios y horarios son de ejemplo.</p>
+  <div class="progress" aria-hidden="true"><span></span></div>
+
+  <svg width="0" height="0" class="vh" aria-hidden="true">
+    <defs>
+      <mask id="logo-cut"><rect width="48" height="48" fill="#fff"/><path d="M41 5 7 43" stroke="#000" stroke-width="7"/></mask>
+      <symbol id="logo-mark" viewBox="0 0 48 48">
+        <path mask="url(#logo-cut)" d="M35 12H18.5a6 6 0 0 0 0 12h11a6 6 0 0 1 0 12H13" fill="none" stroke="currentColor" stroke-width="5"/>
+        <path class="logo-slash" d="M40 6 8 42" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round"/>
+      </symbol>
+    </defs>
+  </svg>
 
   <canvas class="razor-canvas" aria-hidden="true"></canvas>
+  <div class="glow" aria-hidden="true"></div>
 
   <header class="hero" id="inicio">
     <div class="bar">
-      <a class="wordmark" href="#inicio">Sharp Society</a>
+      <a class="logo" href="#inicio" aria-label="Sharp Society, inicio">
+        <svg class="logo-icon" aria-hidden="true"><use href="#logo-mark"/></svg>
+        <span class="logo-text"><span>Sharp</span><span>Society</span></span>
+      </a>
       <nav class="links" id="nav" aria-label="Principal">
+        <a href="#cortes">Cortes</a>
         <a href="#servicios">Servicios</a>
         <a href="#society">Membresía</a>
         <a href="#preguntas">Preguntas</a>
@@ -32,21 +49,36 @@
     </div>
     <div class="hero-grid">
       <div class="hero-copy">
+        <p class="kicker"><span class="dot" aria-hidden="true"></span>Barbería por cita · San Cristóbal</p>
         <h1 class="hero-title"><span>Cortes precisos.</span> <span>Cero espera.</span></h1>
-        <p class="hero-lead">Barbería por cita en San Cristóbal. Eliges servicio y hora, confirmas por WhatsApp y te sientas a la hora que dijimos.</p>
+        <p class="hero-lead">Taper, low fade, mid fade y barba con navaja. Eliges servicio y hora, confirmas por WhatsApp y te sientas a la hora que dijimos.</p>
         <div class="hero-actions">
           <a class="btn btn-accent magnetic" href="#servicios">Reservar turno</a>
-          <a class="btn btn-ghost magnetic" href="#oficio">Cómo trabajamos</a>
+          <a class="btn btn-ghost magnetic" href="#cortes">Ver los cortes</a>
         </div>
       </div>
-      <figure class="hero-fallback"><img src="assets/tools-black.jpg" alt="Navaja, tijeras, peine y máquina sobre una mesa negra" width="1800" height="1200"></figure>
+      <figure class="hero-fallback"><img src="assets/cut-mid.jpg" alt="Hombre de perfil con un mid fade y barba perfilada" width="1200" height="1800"></figure>
     </div>
-    <ul class="hero-facts">
-      <li>Lunes a sábado, 9:00 a 19:00</li>
-      <li>San Cristóbal, Táchira</li>
-      <li>Pago Móvil, Zelle, Bancolombia, Nequi</li>
-    </ul>
+    <div class="hero-foot">
+      <ul class="hero-facts">
+        <li>Lunes a sábado, 9:00 a 19:00</li>
+        <li>San Cristóbal, Táchira</li>
+        <li>Pago Móvil, Zelle, Bancolombia, Nequi</li>
+      </ul>
+      <svg class="badge" viewBox="0 0 120 120" aria-hidden="true">
+        <defs><path id="ring" d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1-92 0"/></defs>
+        <text><textPath href="#ring">SHARP SOCIETY · BARBERÍA POR CITA · SAN CRISTÓBAL ·</textPath></text>
+        <use href="#logo-mark" x="40" y="40" width="40" height="40"/>
+      </svg>
+    </div>
   </header>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Taper fade</span><i></i><span>Low fade</span><i></i><span>Mid fade</span><i></i><span>High fade</span><i></i><span>Barba con navaja</span><i></i><span>Toalla caliente</span><i></i>
+      <span>Taper fade</span><i></i><span>Low fade</span><i></i><span>Mid fade</span><i></i><span>High fade</span><i></i><span>Barba con navaja</span><i></i><span>Toalla caliente</span><i></i>
+    </div>
+  </div>
 
   <main id="contenido">
     <section class="story" id="oficio" aria-labelledby="oficio-titulo">
@@ -61,6 +93,70 @@
       </div>
     </section>
 
+    <section class="looks" id="cortes" aria-labelledby="cortes-titulo">
+      <div class="looks-head">
+        <h2 id="cortes-titulo">Los cortes que más piden</h2>
+        <p>La diferencia está en dónde empieza el degradado. Desliza, mira la altura y súmalo a tu cita.</p>
+      </div>
+      <div class="looks-track" id="looks-track">
+        <article class="look" style="--h:.18">
+          <figure><img src="assets/cut-taper.jpg" alt="Hombre sonriendo con taper fade y barba corta" width="1200" height="1800" loading="lazy"></figure>
+          <div class="look-info">
+            <p class="look-num">01</p>
+            <h3>Taper fade</h3>
+            <p class="look-text">Solo patillas y nuca se rebajan. Se ve limpio y crece sin perder la forma.</p>
+            <div class="meter"><span class="meter-bar"><b></b></span><span class="meter-label">Patillas y nuca</span></div>
+            <button class="look-add" type="button" data-add="Taper fade">Sumar a mi cita · $7</button>
+          </div>
+        </article>
+        <article class="look" style="--h:.34">
+          <figure><img src="assets/cut-low.jpg" alt="Hombre de perfil con low fade y rizos arriba" width="1200" height="2133" loading="lazy"></figure>
+          <div class="look-info">
+            <p class="look-num">02</p>
+            <h3>Low fade</h3>
+            <p class="look-text">El degradado arranca justo encima de la oreja. Ideal si quieres dejar volumen arriba.</p>
+            <div class="meter"><span class="meter-bar"><b></b></span><span class="meter-label">Sobre la oreja</span></div>
+            <button class="look-add" type="button" data-add="Low fade">Sumar a mi cita · $7</button>
+          </div>
+        </article>
+        <article class="look" style="--h:.6">
+          <figure><img src="assets/cut-mid.jpg" alt="Hombre de perfil con mid fade y barba perfilada" width="1200" height="1800" loading="lazy"></figure>
+          <div class="look-info">
+            <p class="look-num">03</p>
+            <h3>Mid fade</h3>
+            <p class="look-text">Empieza a media altura, a la línea de la sien. El más pedido: contraste sin ir al extremo.</p>
+            <div class="meter"><span class="meter-bar"><b></b></span><span class="meter-label">A la altura de la sien</span></div>
+            <button class="look-add" type="button" data-add="Mid fade">Sumar a mi cita · $7</button>
+          </div>
+        </article>
+        <article class="look" style="--h:.86">
+          <figure><img src="assets/cut-high.jpg" alt="Hombre de perfil con high fade a piel y rizos arriba, en blanco y negro" width="1200" height="1509" loading="lazy"></figure>
+          <div class="look-info">
+            <p class="look-num">04</p>
+            <h3>High fade</h3>
+            <p class="look-text">Lados a piel casi hasta arriba. El contraste más marcado, para cabello con textura.</p>
+            <div class="meter"><span class="meter-bar"><b></b></span><span class="meter-label">Casi hasta la coronilla</span></div>
+            <button class="look-add" type="button" data-add="High fade">Sumar a mi cita · $8</button>
+          </div>
+        </article>
+        <article class="look" style="--h:.42">
+          <figure><img src="assets/cut-classic.jpg" alt="Hombre de perfil con corte clásico de raya al lado y barba" width="1200" height="800" loading="lazy"></figure>
+          <div class="look-info">
+            <p class="look-num">05</p>
+            <h3>Clásico con raya</h3>
+            <p class="look-text">Peinado hacia un lado con la raya marcada a navaja. Funciona en la oficina y en la boda.</p>
+            <div class="meter"><span class="meter-bar"><b></b></span><span class="meter-label">Lados cortos, arriba largo</span></div>
+            <button class="look-add" type="button" data-add="Corte clásico">Sumar a mi cita · $6</button>
+          </div>
+        </article>
+      </div>
+      <div class="looks-progress" aria-hidden="true"><span></span></div>
+    </section>
+
+    <section class="manifesto" aria-label="Nuestra regla">
+      <p class="manifesto-text">Una hoja nueva por cliente, un espejo de mano al final y nadie esperando en la puerta. Así de simple.</p>
+    </section>
+
     <section class="services" id="servicios" aria-labelledby="servicios-titulo">
       <div class="services-head">
         <h2 id="servicios-titulo">Servicios y precios</h2>
@@ -68,13 +164,16 @@
       </div>
       <div class="services-grid">
         <ul class="service-list" id="service-list">
-          <li><button class="svc" type="button" aria-pressed="false" data-name="Corte clásico" data-price="6" data-min="40" data-img="assets/tools-black.jpg"><span class="svc-name">Corte clásico</span><span class="svc-meta">Máquina y tijera, lavado incluido · 40 min</span><span class="svc-price">$6</span></button></li>
-          <li><button class="svc" type="button" aria-pressed="false" data-name="Degradado" data-price="7" data-min="45" data-img="assets/tools-slate.jpg"><span class="svc-name">Degradado</span><span class="svc-meta">Bajo, medio o alto, con navaja en la nuca · 45 min</span><span class="svc-price">$7</span></button></li>
-          <li><button class="svc" type="button" aria-pressed="false" data-name="Corte a tijera" data-price="8" data-min="50" data-img="assets/tools-orange.jpg"><span class="svc-name">Corte a tijera</span><span class="svc-meta">Para cabello largo o con textura · 50 min</span><span class="svc-price">$8</span></button></li>
-          <li><button class="svc" type="button" aria-pressed="false" data-name="Perfilado de barba" data-price="4" data-min="20" data-img="assets/razor-dovo.jpg"><span class="svc-name">Perfilado de barba</span><span class="svc-meta">Forma y líneas con navaja · 20 min</span><span class="svc-price">$4</span></button></li>
-          <li><button class="svc" type="button" aria-pressed="false" data-name="Afeitado con toalla caliente" data-price="6" data-min="30" data-img="assets/razor-dovo.jpg"><span class="svc-name">Afeitado con toalla caliente</span><span class="svc-meta">Navaja, espuma de brocha y bálsamo · 30 min</span><span class="svc-price">$6</span></button></li>
-          <li><button class="svc" type="button" aria-pressed="false" data-name="Corte y barba" data-price="11" data-min="70" data-img="assets/tools-black.jpg"><span class="svc-name">Corte y barba</span><span class="svc-meta">El combo de siempre · 70 min</span><span class="svc-price">$11</span></button></li>
-          <li><button class="svc" type="button" aria-pressed="false" data-name="Corte niño" data-price="5" data-min="30" data-img="assets/tools-orange.jpg"><span class="svc-name">Corte niño</span><span class="svc-meta">Hasta 12 años · 30 min</span><span class="svc-price">$5</span></button></li>
+          <li><button class="svc" type="button" aria-pressed="false" data-name="Corte clásico" data-price="6" data-min="40" data-img="assets/cut-classic.jpg"><img class="svc-thumb" src="assets/cut-classic.jpg" alt="" loading="lazy"><span class="svc-name">Corte clásico</span><span class="svc-meta">Máquina y tijera, lavado incluido · 40 min</span><span class="svc-price">$6</span></button></li>
+          <li><button class="svc" type="button" aria-pressed="false" data-name="Taper fade" data-price="7" data-min="40" data-img="assets/cut-taper.jpg"><img class="svc-thumb" src="assets/cut-taper.jpg" alt="" loading="lazy"><span class="svc-name">Taper fade</span><span class="svc-meta">Patillas y nuca rebajadas, line up incluido · 40 min</span><span class="svc-price">$7</span></button></li>
+          <li><button class="svc" type="button" aria-pressed="false" data-name="Low fade" data-price="7" data-min="45" data-img="assets/cut-low.jpg"><img class="svc-thumb" src="assets/cut-low.jpg" alt="" loading="lazy"><span class="svc-name">Low fade</span><span class="svc-meta">Degradado bajo, arriba a tijera · 45 min</span><span class="svc-price">$7</span></button></li>
+          <li><button class="svc" type="button" aria-pressed="false" data-name="Mid fade" data-price="7" data-min="45" data-img="assets/cut-mid.jpg"><img class="svc-thumb" src="assets/cut-mid.jpg" alt="" loading="lazy"><span class="svc-name">Mid fade</span><span class="svc-meta">Degradado a media altura con navaja · 45 min</span><span class="svc-price">$7</span></button></li>
+          <li><button class="svc" type="button" aria-pressed="false" data-name="High fade" data-price="8" data-min="50" data-img="assets/cut-high.jpg"><img class="svc-thumb" src="assets/cut-high.jpg" alt="" loading="lazy"><span class="svc-name">High fade</span><span class="svc-meta">Lados a piel, contraste alto · 50 min</span><span class="svc-price">$8</span></button></li>
+          <li><button class="svc" type="button" aria-pressed="false" data-name="Corte a tijera" data-price="8" data-min="50" data-img="assets/cut-scissor.jpg"><img class="svc-thumb" src="assets/cut-scissor.jpg" alt="" loading="lazy"><span class="svc-name">Corte a tijera</span><span class="svc-meta">Para cabello largo o con textura · 50 min</span><span class="svc-price">$8</span></button></li>
+          <li><button class="svc" type="button" aria-pressed="false" data-name="Perfilado de barba" data-price="4" data-min="20" data-img="assets/cut-beard.jpg"><img class="svc-thumb" src="assets/cut-beard.jpg" alt="" loading="lazy"><span class="svc-name">Perfilado de barba</span><span class="svc-meta">Forma y líneas con navaja · 20 min</span><span class="svc-price">$4</span></button></li>
+          <li><button class="svc" type="button" aria-pressed="false" data-name="Afeitado con toalla caliente" data-price="6" data-min="30" data-img="assets/cut-shave.jpg"><img class="svc-thumb" src="assets/cut-shave.jpg" alt="" loading="lazy"><span class="svc-name">Afeitado con toalla caliente</span><span class="svc-meta">Navaja, espuma de brocha y bálsamo · 30 min</span><span class="svc-price">$6</span></button></li>
+          <li><button class="svc" type="button" aria-pressed="false" data-name="Corte y barba" data-price="11" data-min="70" data-img="assets/cut-combo.jpg"><img class="svc-thumb" src="assets/cut-combo.jpg" alt="" loading="lazy"><span class="svc-name">Corte y barba</span><span class="svc-meta">Cualquier fade más perfilado · 70 min</span><span class="svc-price">$11</span></button></li>
+          <li><button class="svc" type="button" aria-pressed="false" data-name="Corte niño" data-price="5" data-min="30" data-img="assets/cut-kid.jpg"><img class="svc-thumb" src="assets/cut-kid.jpg" alt="" loading="lazy"><span class="svc-name">Corte niño</span><span class="svc-meta">Hasta 12 años, con diseño si quiere · 30 min</span><span class="svc-price">$5</span></button></li>
         </ul>
         <aside class="booking" aria-labelledby="cita-titulo">
           <h3 id="cita-titulo">Tu cita</h3>
@@ -100,17 +199,21 @@
           <p class="fine">En la página real este botón abre el chat de la barbería con el mensaje escrito. Aquí es una demostración.</p>
         </aside>
       </div>
-      <figure class="hover-img" aria-hidden="true"><img src="assets/tools-black.jpg" alt=""></figure>
+      <figure class="hover-img" aria-hidden="true"><img src="assets/cut-classic.jpg" alt=""><figcaption></figcaption></figure>
     </section>
 
     <section class="society" id="society" aria-labelledby="society-titulo">
       <div class="society-copy">
         <h2 id="society-titulo">La membresía Society</h2>
         <p>Para quien se corta cada dos semanas. Pagas una vez al mes y tu turno del sábado queda apartado.</p>
+        <figure class="society-photo"><img src="assets/cut-back.jpg" alt="Nuca de un hombre con fade recién hecho, vista de espaldas" width="1200" height="960" loading="lazy"></figure>
       </div>
       <div class="card-wrap">
         <article class="card" data-tilt>
-          <p class="card-name">Society</p>
+          <div class="card-top">
+            <p class="card-name">Society</p>
+            <svg class="card-logo" aria-hidden="true"><use href="#logo-mark"/></svg>
+          </div>
           <p class="card-price"><strong>$14</strong> al mes</p>
           <ul class="card-list">
             <li>Dos cortes al mes</li>
@@ -124,19 +227,10 @@
       </div>
     </section>
 
-    <section class="craft" aria-labelledby="craft-titulo">
-      <h2 id="craft-titulo">Las herramientas</h2>
-      <div class="craft-track">
-        <figure class="craft-item"><img src="assets/tools-black.jpg" alt="Navaja, tijeras, peines y máquina sobre una alfombra negra" width="1800" height="1200" loading="lazy"><figcaption>Tijeras de entresacar y de corte, peine de degradado y la máquina de detalle.</figcaption></figure>
-        <figure class="craft-item tall"><img src="assets/razor-dovo.jpg" alt="Navaja de barbero con mango de madera oscura" width="1920" height="1920" loading="lazy"><figcaption>Navaja de hoja cambiable: una nueva por cada cliente.</figcaption></figure>
-        <figure class="craft-item"><img src="assets/tools-orange.jpg" alt="Tijeras, máquina, guías numeradas, cepillo de barba y peine" width="1800" height="1440" loading="lazy"><figcaption>Guías del 0,5 al 8 para que el degradado salga parejo.</figcaption></figure>
-        <figure class="craft-item"><img src="assets/tools-slate.jpg" alt="Máquina, tijeras y peine sobre una pizarra con productos de peinado" width="1800" height="1200" loading="lazy"><figcaption>Cera, pomada y aceite: te decimos cuál usar en casa.</figcaption></figure>
-      </div>
-    </section>
-
     <section class="faq" id="preguntas" aria-labelledby="faq-titulo">
       <h2 id="faq-titulo">Antes de venir</h2>
       <div class="faq-list">
+        <details><summary>¿Cuál es la diferencia entre taper y fade?<i aria-hidden="true"></i></summary><p>El taper solo rebaja patillas y nuca. El fade sube por los lados: low arranca sobre la oreja, mid en la sien y high casi hasta arriba.</p></details>
         <details><summary>¿Tengo que reservar?<i aria-hidden="true"></i></summary><p>Trabajamos por cita para que nadie espere. Si hay una silla libre te atendemos igual, pero escribe antes.</p></details>
         <details><summary>¿Qué pasa si llego tarde?<i aria-hidden="true"></i></summary><p>Te esperamos diez minutos. Después movemos tu turno al siguiente espacio libre del día.</p></details>
         <details><summary>¿Cómo pago?<i aria-hidden="true"></i></summary><p>Al terminar: efectivo en dólares o pesos, Pago Móvil, Zelle, Bancolombia o Nequi.</p></details>
@@ -151,8 +245,9 @@
     <div class="footer-row">
       <p>Sharp Society · San Cristóbal, Táchira · dirección de ejemplo<br>Lunes a sábado, 9:00 a 19:00</p>
       <p>Proyecto demostrativo: Sharp Society no existe. ¿Quieres una página así? <a href="https://instagram.com/estudioabweb">Escríbele a AB Web Studio</a>.</p>
-      <p class="credits">Fotos: Unsplash (herramientas) y Wikimedia Commons, <a href="https://commons.wikimedia.org/w/index.php?curid=132041079">«10681083 Bergischer Löwe 6-8th Ebenholz Straight Razor»</a> de SneRet, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>. Navaja 3D hecha en código.</p>
+      <p class="credits">Fotos de cortes en <a href="https://www.pexels.com/license/">Pexels</a>: <a href="https://www.pexels.com/photo/modern-fade-haircut-with-sharp-beard-style-39559324/">Brian Silva</a>, <a href="https://www.pexels.com/photo/close-up-photo-of-a-man-with-happy-face-7589418/">Joice Rivas</a>, <a href="https://www.pexels.com/photo/barber-shop-27467943/">clark07</a>, <a href="https://www.pexels.com/photo/man-with-dyed-hair-in-black-and-white-17928570/">usuario de Pexels</a>, <a href="https://www.pexels.com/photo/man-at-barber-shop-12706272/">iamluisao</a>, <a href="https://www.pexels.com/photo/profile-of-a-man-at-a-barber-7781848/">leonardokfn</a>, <a href="https://www.pexels.com/photo/back-view-of-man-with-black-hair-12074386/">Ali Aliev</a>, <a href="https://www.pexels.com/photo/a-man-at-a-barber-18503658/">hamidoffstudio</a>, <a href="https://www.pexels.com/photo/young-boy-getting-a-haircut-outdoors-37836122/">omar_al1</a>, <a href="https://www.pexels.com/photo/portrait-of-man-at-hairdresser-4625621/">Anthony Shkraba</a>. Navaja 3D y logo hechos en código.</p>
     </div>
+    <p class="footer-logo" aria-hidden="true">Sharp Society</p>
   </footer>
 
   <div class="dock" id="dock" aria-label="Resumen de tu cita">

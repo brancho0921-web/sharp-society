@@ -25,6 +25,7 @@ function update() {
   $('#booking-time').textContent = fmt(min);
   document.dispatchEvent(new CustomEvent('cita:total', { detail: { total } }));
   if (reduce || !window.gsap) $('#booking-total').textContent = `$${total}`;
+  $$('.look-add').forEach((b) => b.setAttribute('aria-pressed', String(picked.has(b.dataset.add))));
   $('#dock-total').textContent = items.length ? `$${total} · ${fmt(min)}` : 'Arma tu cita';
   $('#dock-time').textContent = items.length ? items.map((i) => i.name).join(', ') : 'Corte, barba o combo';
   const dia = $('input[name=dia]:checked').value, hora = $('#hora').value, nombre = $('#nombre').value.trim();
@@ -37,6 +38,10 @@ $$('.svc').forEach((b) => b.addEventListener('click', () => {
   b.setAttribute('aria-pressed', String(on));
   on ? picked.set(b.dataset.name, { name: b.dataset.name, price: +b.dataset.price, min: +b.dataset.min }) : picked.delete(b.dataset.name);
   update();
+}));
+// Los botones de la galería de cortes marcan el mismo servicio de la lista
+$$('.look-add').forEach((b) => b.addEventListener('click', () => {
+  $(`.svc[data-name="${b.dataset.add}"]`).click();
 }));
 $$('input[name=dia], #hora').forEach((el) => el.addEventListener('change', update));
 $('#nombre').addEventListener('input', update);
@@ -63,19 +68,29 @@ if (!reduce && finePointer) {
   card.addEventListener('pointerleave', () => { card.style.transition = 'transform .6s cubic-bezier(.23,1,.32,1)'; card.style.transform = ''; setTimeout(() => (card.style.transition = ''), 600); });
 
   // Foto que sigue al cursor sobre la lista de servicios
-  const hover = $('.hover-img'), hoverImg = $('img', hover);
+  const hover = $('.hover-img'), hoverImg = $('img', hover), hoverCap = $('figcaption', hover);
   let hx = 0, hy = 0, tx = 0, ty = 0, shown = false, raf = 0;
   const loop = () => {
     hx += (tx - hx) * 0.18; hy += (ty - hy) * 0.18;
-    hover.style.transform = `translate(${hx - 130}px, ${hy - 98}px) scale(${shown ? 1 : 0.85}) rotate(${(tx - hx) * 0.04}deg)`;
+    hover.style.transform = `translate(${hx - 120}px, ${hy - 150}px) scale(${shown ? 1 : 0.85}) rotate(${(tx - hx) * 0.04}deg)`;
     raf = Math.abs(tx - hx) + Math.abs(ty - hy) > 0.5 || shown ? requestAnimationFrame(loop) : 0;
   };
   $$('.svc').forEach((b) => {
-    b.addEventListener('pointerenter', () => { hoverImg.src = b.dataset.img; shown = true; hover.style.opacity = '1'; if (!raf) raf = requestAnimationFrame(loop); });
+    b.addEventListener('pointerenter', () => { hoverImg.src = b.dataset.img; hoverCap.textContent = b.dataset.name; shown = true; hover.style.opacity = '1'; if (!raf) raf = requestAnimationFrame(loop); });
     b.addEventListener('pointerleave', () => { shown = false; hover.style.opacity = '0'; });
   });
   $('#service-list').addEventListener('pointermove', (e) => { tx = e.clientX + 40; ty = e.clientY; if (!raf) raf = requestAnimationFrame(loop); });
   hover.style.transition = 'opacity .25s ease';
+
+  // La luz de fondo sigue al cursor, con retraso
+  const glow = $('.glow');
+  let gx = innerWidth * 0.8, gy = innerHeight * 0.2, gtx = gx, gty = gy, graf = 0;
+  const glowLoop = () => {
+    gx += (gtx - gx) * 0.08; gy += (gty - gy) * 0.08;
+    glow.style.setProperty('--gx', `${gx}px`); glow.style.setProperty('--gy', `${gy}px`);
+    graf = Math.abs(gtx - gx) + Math.abs(gty - gy) > 0.5 ? requestAnimationFrame(glowLoop) : 0;
+  };
+  addEventListener('pointermove', (e) => { gtx = e.clientX; gty = e.clientY; if (!graf) graf = requestAnimationFrame(glowLoop); }, { passive: true });
 
   // Botones magnéticos
   $$('.magnetic').forEach((el) => {

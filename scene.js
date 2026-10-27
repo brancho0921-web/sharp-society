@@ -87,7 +87,59 @@ function start() {
     storyTl.to({}, { duration: 1 });
   }
 
-  // ---------- Entradas del resto ----------
+  // El total cuenta hasta el número nuevo
+  const totalEl = $('#booking-total'), tally = { v: 0 };
+  document.addEventListener('cita:total', (e) => gsap.to(tally, { v: e.detail.total, duration: 0.6, ease: 'power3.out', onUpdate: () => (totalEl.textContent = `$${Math.round(tally.v)}`) }));
+
+  // ---------- Detalles que se mueven con el scroll ----------
+  // barra de avance arriba
+  gsap.to('.progress span', { scaleX: 1, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: 0.3 } });
+  // el sello gira al bajar
+  gsap.to('.badge', { rotate: 360, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: 0.5 } });
+  // el corte del logo se dibuja al entrar
+  gsap.from('.bar .logo-icon', { rotate: -90, scale: 0.6, duration: 1.2, ease });
+  // la banda se inclina según la velocidad del scroll
+  const skew = gsap.quickTo('.marquee span', 'skewX', { duration: 0.5, ease: 'power3' });
+  let calm = 0;
+  ScrollTrigger.create({ onUpdate: (self) => {
+    skew(gsap.utils.clamp(-14, 14, self.getVelocity() / -200));
+    clearTimeout(calm); calm = setTimeout(() => skew(0), 120);
+  } });
+  // la navaja se apaga al llegar a los cortes
+  if (razor) gsap.to('.razor-canvas', { opacity: 0, ease: 'none', scrollTrigger: { trigger: '.looks', start: 'top bottom', end: 'top 35%', scrub: true } });
+
+  // Los cortes: en computadora se fija la sección y el carrusel corre de lado
+  const looks = $('.looks'), track = $('#looks-track'), bar = $('.looks-progress span');
+  rise($('.looks-head h2'));
+  enter('.looks-head p', '.looks-head');
+  const mm = gsap.matchMedia();
+  mm.add('(min-width: 901px)', () => {
+    const dist = () => Math.max(0, track.scrollWidth - innerWidth);
+    // si la sección cabe en pantalla se fija centrada; si no, cuando su borde de abajo llega abajo
+    gsap.timeline({ scrollTrigger: { trigger: looks, start: () => (looks.offsetHeight > innerHeight ? 'bottom bottom' : 'center center'), end: () => '+=' + dist(), pin: true, scrub: 0.8, anticipatePin: 1, invalidateOnRefresh: true } })
+      .to(track, { x: () => -dist(), ease: 'none' }, 0)
+      .to(bar, { scaleX: 1, ease: 'none' }, 0);
+    $$('.look figure img').forEach((img) => gsap.fromTo(img, { xPercent: -6 }, { xPercent: 6, ease: 'none', scrollTrigger: { trigger: looks, start: () => (looks.offsetHeight > innerHeight ? 'bottom bottom' : 'center center'), end: () => '+=' + dist(), scrub: true } }));
+  });
+  mm.add('(max-width: 900px)', () => {
+    const onScroll = () => gsap.set(bar, { scaleX: track.scrollLeft / Math.max(1, track.scrollWidth - track.clientWidth) });
+    track.addEventListener('scroll', onScroll, { passive: true });
+    return () => track.removeEventListener('scroll', onScroll);
+  });
+  $$('.look').forEach((card, i) => {
+    gsap.from(card, { y: 80, rotate: 2, opacity: 0, duration: 1.1, ease, delay: i * 0.08, immediateRender: false, scrollTrigger: { trigger: track, start: 'top bottom', once: true } });
+    gsap.from($('.meter-bar b', card), { scaleX: 0, duration: 1.4, ease: 'expo.inOut', delay: 0.3 + i * 0.1, immediateRender: false, scrollTrigger: { trigger: track, start: 'top 85%', once: true } });
+  });
+
+  // La frase se enciende palabra por palabra
+  const mText = $('.manifesto-text');
+  mText.setAttribute('aria-label', mText.textContent.trim());
+  mText.innerHTML = mText.textContent.trim().split(/\s+/).map((w) => `<span class="mw" aria-hidden="true">${w}</span>`).join(' ');
+  const mWords = $$('.mw', mText);
+  ScrollTrigger.create({ trigger: mText, start: 'top 80%', end: 'bottom 45%', scrub: true,
+    onUpdate: (self) => mWords.forEach((w, i) => w.classList.toggle('on', i < Math.round(self.progress * mWords.length))) });
+
+  // ---------- Entradas del resto (después de los pines, para medir bien) ----------
   rise($('.services-head h2'));
   enter('.services-head p', '.services-head');
   enter($$('#service-list li'), '#service-list', { stagger: 0.05, y: 24 });
@@ -95,19 +147,16 @@ function start() {
   rise($('.society h2'));
   enter('.society-copy p', '.society-copy');
   gsap.from('.card', { rotateX: 35, rotateY: -25, y: 80, opacity: 0, duration: 1.4, ease, immediateRender: false, scrollTrigger: { trigger: '.card-wrap', start: 'top bottom', once: true } });
-  rise($('.craft h2'));
   rise($('.faq h2'));
   enter($$('.faq details'), '.faq-list', { stagger: 0.06, y: 20 });
   rise($('.footer-cta'), { stagger: 0.025 });
 
-  // El total cuenta hasta el número nuevo
-  const totalEl = $('#booking-total'), tally = { v: 0 };
-  document.addEventListener('cita:total', (e) => gsap.to(tally, { v: e.detail.total, duration: 0.6, ease: 'power3.out', onUpdate: () => (totalEl.textContent = `$${Math.round(tally.v)}`) }));
+  // Foto de la membresía: se descubre de abajo hacia arriba
+  gsap.from('.society-photo', { clipPath: 'inset(100% 0 0 0 round 18px)', duration: 1.4, ease: 'expo.inOut', immediateRender: false, scrollTrigger: { trigger: '.society-photo', start: 'top 90%', once: true } });
+  gsap.fromTo('.society-photo img', { scale: 1.2 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: '.society-photo', start: 'top bottom', end: 'bottom top', scrub: true } });
 
-  // Las herramientas: cada foto se mueve a su propio ritmo
-  $$('.craft-item').forEach((fig, i) => {
-    gsap.fromTo($('img', fig), { scale: 1.15 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: fig, start: 'top bottom', end: 'bottom top', scrub: true } });
-  });
+  // El nombre gigante del pie se arma letra por letra
+  gsap.from(split($('.footer-logo')), { yPercent: 100, duration: 1, ease, stagger: 0.03, immediateRender: false, scrollTrigger: { trigger: '.footer-logo', start: 'top bottom', once: true } });
 
   addEventListener('load', () => ScrollTrigger.refresh());
   if (document.fonts) document.fonts.ready.then(() => ScrollTrigger.refresh());
@@ -191,7 +240,7 @@ function start() {
     addEventListener('resize', resize);
 
     // solo se dibuja mientras la portada o el escenario están en pantalla
-    const visible = () => { const pin = ScrollTrigger.getAll().find((s) => s.pin === document.querySelector('.story')); return !pin || scrollY < pin.end + innerHeight * 0.2; };
+    const visible = () => canvas.style.opacity !== '0';
 
     gsap.ticker.add((time) => {
       if (!visible() || document.hidden) return;
